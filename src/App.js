@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import SimpleStorageContract from '../build/contracts/SimpleStorage.json'
 import getWeb3 from './utils/getWeb3'
 
+//components
+import SoundFile from './Components/SoundFile.js'
+
 import './css/oswald.css'
 import './css/open-sans.css'
 import './css/pure-min.css'
@@ -68,6 +71,9 @@ class App extends Component {
   }
 
   render() {
+    let fileHash1="Qmctyojt2Rc7PbKbi3CM9zpoHR91qhNpgj6Jkq2Zi6VdfG"
+    let fileHash2="QmSnUCS7wRhkcJj97d8poXM9CvH45VGjUBnEUjLZW49BcH"
+    let fileHash3="Qmevt9AJLAJyBo8KtxiKJ8qGNNY57fJFJqVXkhPVXHZzPs"
     return (
       <div className="App">
         <nav className="navbar pure-menu pure-menu-horizontal">
@@ -77,10 +83,13 @@ class App extends Component {
         <main className="container">
           <div className="pure-g">
             <div className="pure-u-1-1">
-              <h1>Good to Go!</h1>
-              <p>Your Truffle Box is installed and ready.</p>
-              <h2>Smart Contract Example</h2>
-              <p>If your contracts compiled and migrated successfully, below will show a stored value of 5 (by default).</p>
+            <h1>blockchain based sampling database</h1>
+            <p>listen to audio samples, remix and reply to sounds. <br /> this project is an experiment to see what happens when pseudonymous users can share and remix sounds stored on a permissionless database.</p>
+
+            <SoundFile fileHash={fileHash1}/>
+            <SoundFile fileHash={fileHash2}/>
+            <SoundFile fileHash={fileHash3}/>
+
               <p>Try changing the value stored on <strong>line 59</strong> of App.js.</p>
               <p>The stored value is: {this.state.storageValue}</p>
             </div>
