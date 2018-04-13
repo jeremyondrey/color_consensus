@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import SampleStorageContract from '../build/contracts/SampleStorage.json'
 import getWeb3 from './utils/getWeb3'
+import ReactAudioPlayer from 'react-audio-player'
 
 //components
 import SoundFile from './Components/SoundFile.js'

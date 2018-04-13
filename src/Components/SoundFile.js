@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReactAudioPlayer from 'react-audio-player'
 
 class SoundFile extends Component {
   constructor(props) {
@@ -10,21 +11,19 @@ class SoundFile extends Component {
     }
   }
 
-  // handleClick(e) {
-  //   alert("hey")
-  // }
+   handleClick() {
+     alert("hey")
+   }
   // <button className="pure-button-primary" onClick={this.handleClick("download").bind()}>download</button>
 
+  //<a href={"http://ipfs.io/ipfs/" + this.state.fileHash}>{this.state.fileHash}</a> <br />
 
   render() {
+    let url="https://ipfs.io/ipfs/" + this.props.fileHash
     return (
     <div className="sound-element">
-      <button className="pure-button-play" >P</button>
-      <button className="pure-button-primary">DL</button>
-      <button className="pure-button-active">res</button>
-      <a href={"http://ipfs.io/ipfs/" + this.state.fileHash}>{this.state.fileHash}</a> <br />
-
-
+      <ReactAudioPlayer src={url} controls />
+      <button className="pure-button-active" onClick={this.handleClick.bind()}>respond</button>
     </div>
     );
   }
