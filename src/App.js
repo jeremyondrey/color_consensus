@@ -89,7 +89,7 @@ class App extends Component {
         <main className="container">
           <div className="pure-g">
             <div className="pure-u-1-1">
-            <h1>blockchain based sampling database</h1>
+            <h1>Blockchain based sampling database</h1>
             <p>listen to audio samples, remix and reply to sounds. <br /> this project is an experiment to see what happens when pseudonymous users can share and remix sounds stored on a permissionless database.</p>
             <SoundFile fileHash={fileHash1}/>
             <div className="tab"><SoundFile fileHash={fileHash2}/></div>
