@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
-import SimpleStorageContract from '../build/contracts/SimpleStorage.json'
+import SampleStorageContract from '../build/contracts/SampleStorage.json'
 import getWeb3 from './utils/getWeb3'
 
 //components
 import SoundFile from './Components/SoundFile.js'
+
+//local json database
+import jsonSoundList from './jsonSoundList.json'
 
 import './css/oswald.css'
 import './css/open-sans.css'
@@ -15,7 +18,7 @@ class App extends Component {
     super(props)
 
     this.state = {
-      storageValue: 0,
+      storageValue: "hello",
       web3: null
     }
   }
@@ -47,25 +50,26 @@ class App extends Component {
      */
 
     const contract = require('truffle-contract')
-    const simpleStorage = contract(SimpleStorageContract)
-    simpleStorage.setProvider(this.state.web3.currentProvider)
+    const sampleStorage = contract(SampleStorageContract)
+    sampleStorage.setProvider(this.state.web3.currentProvider)
 
-    // Declaring this for later so we can chain functions on SimpleStorage.
-    var simpleStorageInstance
+    // Declaring this for later so we can chain functions on SampleStorage.
+    var sampleStorageInstance
+    let sentData = "Qmctyojt2Rc7PbKbi3CM9zpoHR91qhNpgj6Jkq2Zi6VdfG"
 
     // Get accounts.
     this.state.web3.eth.getAccounts((error, accounts) => {
-      simpleStorage.deployed().then((instance) => {
-        simpleStorageInstance = instance
+      sampleStorage.deployed().then((instance) => {
+        sampleStorageInstance = instance
 
         // Stores a given value, 5 by default.
-        return simpleStorageInstance.set(5, {from: accounts[0]})
+        return sampleStorageInstance.set(sentData, {from: accounts[0]})
       }).then((result) => {
         // Get the value from the contract to prove it worked.
-        return simpleStorageInstance.get.call(accounts[0])
+        return sampleStorageInstance.get.call(accounts[0])
       }).then((result) => {
         // Update state with the result.
-        return this.setState({ storageValue: result.c[0] })
+        return this.setState({ storageValue: result})
       })
     })
   }
@@ -74,10 +78,12 @@ class App extends Component {
     let fileHash1="Qmctyojt2Rc7PbKbi3CM9zpoHR91qhNpgj6Jkq2Zi6VdfG"
     let fileHash2="QmSnUCS7wRhkcJj97d8poXM9CvH45VGjUBnEUjLZW49BcH"
     let fileHash3="Qmevt9AJLAJyBo8KtxiKJ8qGNNY57fJFJqVXkhPVXHZzPs"
+    // jsonSoundList.push({description:'helloagain_again',fileHash:'verylongfilehash'});
+    console.log(jsonSoundList.description);
     return (
       <div className="App">
         <nav className="navbar pure-menu pure-menu-horizontal">
-            <a href="#" className="pure-menu-heading pure-menu-link">Truffle Box</a>
+            <a href="#" className="pure-menu-heading pure-menu-link">resample.space</a>
         </nav>
 
         <main className="container">
@@ -85,13 +91,13 @@ class App extends Component {
             <div className="pure-u-1-1">
             <h1>blockchain based sampling database</h1>
             <p>listen to audio samples, remix and reply to sounds. <br /> this project is an experiment to see what happens when pseudonymous users can share and remix sounds stored on a permissionless database.</p>
-
             <SoundFile fileHash={fileHash1}/>
-            <SoundFile fileHash={fileHash2}/>
-            <SoundFile fileHash={fileHash3}/>
-
-              <p>Try changing the value stored on <strong>line 59</strong> of App.js.</p>
-              <p>The stored value is: {this.state.storageValue}</p>
+            <div className="tab"><SoundFile fileHash={fileHash2}/></div>
+            <div className="tab"><div className="tab"><SoundFile fileHash={fileHash3}/> </div></div>
+            <SoundFile fileHash={fileHash1}/>
+            <div className="tab"><SoundFile fileHash={fileHash2}/></div>
+            <SoundFile fileHash={fileHash1}/>
+              <p><strong>line 59: </strong> {this.state.storageValue}</p>
             </div>
           </div>
         </main>

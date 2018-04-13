@@ -9,6 +9,10 @@ h1, h2, h3 {
   font-family: 'Oswald', 'Arial Narrow', sans-serif;
 }
 
+.tab {
+  margin-left: 50px;
+}
+
 code {
   display: block;
   margin: 20px 0 15px 0;
@@ -45,6 +49,9 @@ code {
 
 .navbar a {
   color: #fff;
+}
+.sound-element{
+  padding-top: 10px;
 }
 
 .navbar a:active,

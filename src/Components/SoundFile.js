@@ -18,10 +18,10 @@ class SoundFile extends Component {
 
   render() {
     return (
-    <div>
-      <button className="pure-button-play" >Play</button>
-      <button className="pure-button-primary" >download</button>
-      <button className="pure-button-active">respond</button>
+    <div className="sound-element">
+      <button className="pure-button-play" >P</button>
+      <button className="pure-button-primary">DL</button>
+      <button className="pure-button-active">res</button>
       <a href={"http://ipfs.io/ipfs/" + this.state.fileHash}>{this.state.fileHash}</a> <br />
 
 
