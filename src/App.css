@@ -20,6 +20,10 @@ code {
   background: #eee;
 }
 
+.sound-element{
+  background-color: #ddffaa;
+}
+
 .container {
   box-sizing: border-box;
   width: 100%;
