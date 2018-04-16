@@ -42,6 +42,16 @@ code {
   border-color: #0c1a2b;
 }
 
+.footer{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: #0c1a2b;
+  color: white;
+  text-align: center;
+}
+
 /* NAVBAR */
 
 .navbar {
@@ -56,6 +66,7 @@ code {
 }
 .sound-element{
   padding-top: 10px;
+  width: 50%;
 }
 
 .navbar a:active,

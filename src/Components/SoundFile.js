@@ -10,21 +10,20 @@ class SoundFile extends Component {
       parentHash: 'QmfaLOHlkhHkuhfd',
       showResponder: false
     }
+    // binds this keyword to app context
     this.handleClick = this.handleClick.bind(this)
   }
 
    handleClick(e) {
      // alert("setting response state to true" + e)
+     // toggles visibility of response form
      this.setState({ showResponder: !this.state.showResponder })
-     // e.preventDefault()
    }
-  // <button className="pure-button-primary" onClick={this.handleClick("download").bind()}>download</button>
-
-  //<a href={"http://ipfs.io/ipfs/" + this.state.fileHash}>{this.state.fileHash}</a> <br />
 
   render() {
     let url="https://ipfs.io/ipfs/" + this.props.fileHash
     let hash=this.props.fileHash
+    // toggles label of respond button
     let respondButtonLabel=this.state.showResponder ? "close" : "respond"
     return (
     <div>

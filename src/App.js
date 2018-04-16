@@ -4,6 +4,8 @@ import getWeb3 from './utils/getWeb3'
 
 //components
 import SoundFile from './Components/SoundFile.js'
+import Footer from './Components/Footer.js'
+
 
 //local json database
 import jsonSoundList from './jsonSoundList.json'
@@ -90,7 +92,8 @@ class App extends Component {
           <div className="pure-g">
             <div className="pure-u-1-1">
             <h1>Blockchain based sampling database</h1>
-            <p>listen to audio samples, remix and reply to sounds. <br /> this project is an experiment to see what happens when pseudonymous users can share and remix sounds stored on a permissionless database.</p>
+            <p>listen to audio samples, remix and reply to sounds. <br />
+            this project is an experiment to see what happens when pseudonymous users can share and remix sounds stored on a permissionless database.</p>
 
             <SoundFile fileHash={fileHash1}/>
             <div className="tab"><SoundFile fileHash={fileHash2}/></div>
@@ -99,6 +102,7 @@ class App extends Component {
             <div className="tab"><SoundFile fileHash={fileHash2}/></div>
             <SoundFile fileHash={fileHash1}/>
               <p><strong>line 59: </strong> {this.state.storageValue}</p>
+              <Footer currentTrack={fileHash1}/>
             </div>
           </div>
         </main>
