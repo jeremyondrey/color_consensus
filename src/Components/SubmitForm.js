@@ -18,24 +18,18 @@ class SubmitForm extends Component {
 
   handleSubmit(event) {
     alert('A name was submitted: ' + this.state.value);
+    this.props.fireContract()
     event.preventDefault();
   }
-
-   // handleClick(e) {
-   //   // e.preventDefault()
-   //  alert("the clicked hash is " + this.props.parentHash)
-   //
-   //  // this.setState({ showResponder: true });
-   // }
 
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
           <label>
-            Response: 
+            Response:
             <input type="text" value={this.state.value} onChange={this.handleChange} />
           </label>
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Submit"/>
         </form>
     );
   }

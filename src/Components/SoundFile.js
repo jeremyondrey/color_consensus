@@ -14,9 +14,10 @@ class SoundFile extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
 
+  //set response state to true
+  // toggles visibility of response form
    handleClick(e) {
-     // alert("setting response state to true" + e)
-     // toggles visibility of response form
+     // alert("hey")
      this.setState({ showResponder: !this.state.showResponder })
    }
 
@@ -26,13 +27,11 @@ class SoundFile extends Component {
     // toggles label of respond button
     let respondButtonLabel=this.state.showResponder ? "close" : "respond"
     return (
-    <div>
-    <p className="sound-element">{hash} <br/>
-      <ReactAudioPlayer src={url} controls />
-      <button className="pure-button-active" onClick={this.handleClick}>{respondButtonLabel}</button>
-      {this.state.showResponder ? <SubmitForm parentHash={hash}/> : null }
-    </p>
-    </div>
+      <div className="sound-element">{hash} <br/>
+        <ReactAudioPlayer src={url} controls />
+        <button className="pure-button-active" onClick={this.handleClick}>{respondButtonLabel}</button>
+        {this.state.showResponder ? <SubmitForm parentHash={hash} fireContract={this.props.fireContract}/> : null }
+      </div>
     );
   }
 }

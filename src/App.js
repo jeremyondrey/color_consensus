@@ -21,11 +21,28 @@ class App extends Component {
 
     this.state = {
       storageValue: "hello",
-      web3: null
+      web3: null,
+      soundFiles: []
     }
+    this.instantiateContract = this.instantiateContract.bind(this)
+
   }
 
   componentWillMount() {
+    this.setState({soundFiles: [{
+      fileHash: "Qmctyojt2Rc7PbKbi3CM9zpoHR91qhNpgj6Jkq2Zi6VdfG",
+      parentHash: "Qmctyojt2Rc7PbKbi3CM9zpoHR91qhNpgj6Jkq2Zi6VdfG"
+    },
+    {
+      fileHash: "QmSnUCS7wRhkcJj97d8poXM9CvH45VGjUBnEUjLZW49BcH",
+      parentHash: "Qmctyojt2Rc7PbKbi3CM9zpoHR91qhNpgj6Jkq2Zi6VdfG"
+    },
+    {
+      fileHash: "Qmevt9AJLAJyBo8KtxiKJ8qGNNY57fJFJqVXkhPVXHZzPs",
+      parentHash: "Qmctyojt2Rc7PbKbi3CM9zpoHR91qhNpgj6Jkq2Zi6VdfG"
+    }]
+  })
+
     // Get network provider and web3 instance.
     // See utils/getWeb3 for more info.
 
@@ -54,6 +71,7 @@ class App extends Component {
     const contract = require('truffle-contract')
     const sampleStorage = contract(SampleStorageContract)
     sampleStorage.setProvider(this.state.web3.currentProvider)
+    console.log("calling instantiatecontract");
 
     // Declaring this for later so we can chain functions on SampleStorage.
     var sampleStorageInstance
@@ -77,11 +95,18 @@ class App extends Component {
   }
 
   render() {
+    //map through soundFiles array, store list in hashList var
+    let hashList
+    if (this.state.soundFiles) {
+      hashList = this.state.soundFiles.map(item => {
+        return <SoundFile fileHash={item.fileHash} parentHash={item.parentHash} fireContract={this.instantiateContract}/>
+      })
+    }
+
     let fileHash1="Qmctyojt2Rc7PbKbi3CM9zpoHR91qhNpgj6Jkq2Zi6VdfG"
     let fileHash2="QmSnUCS7wRhkcJj97d8poXM9CvH45VGjUBnEUjLZW49BcH"
     let fileHash3="Qmevt9AJLAJyBo8KtxiKJ8qGNNY57fJFJqVXkhPVXHZzPs"
     // jsonSoundList.push({description:'helloagain_again',fileHash:'verylongfilehash'});
-    console.log(jsonSoundList.description);
     return (
       <div className="App">
         <nav className="navbar pure-menu pure-menu-horizontal">
@@ -92,9 +117,9 @@ class App extends Component {
           <div className="pure-g">
             <div className="pure-u-1-1">
             <h1>Blockchain based sampling database</h1>
+            {hashList}
             <p>listen to audio samples, remix and reply to sounds. <br />
             this project is an experiment to see what happens when pseudonymous users can share and remix sounds stored on a permissionless database.</p>
-
             <SoundFile fileHash={fileHash1}/>
             <div className="tab"><SoundFile fileHash={fileHash2}/></div>
             <div className="tab"><div className="tab"><SoundFile fileHash={fileHash3}/> </div></div>
