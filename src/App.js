@@ -8,7 +8,7 @@ import Footer from './Components/Footer.js'
 
 
 //local json database
-import jsonSoundList from './jsonSoundList.json'
+// import jsonSoundList from './jsonSoundList.json'
 
 import './css/oswald.css'
 import './css/open-sans.css'
@@ -24,7 +24,6 @@ class App extends Component {
       web3: null,
       soundFiles: []
     }
-    this.instantiateContract = this.instantiateContract.bind(this)
 
   }
 
@@ -60,7 +59,9 @@ class App extends Component {
     })
   }
 
-  instantiateContract() {
+  instantiateContract(e) {
+    console.log(e, "it works!");
+    // e.preventDefault()
     /*
      * SMART CONTRACT EXAMPLE
      *
@@ -75,18 +76,20 @@ class App extends Component {
 
     // Declaring this for later so we can chain functions on SampleStorage.
     var sampleStorageInstance
-    let sentData = "Qmctyojt2Rc7PbKbi3CM9zpoHR91qhNpgj6Jkq2Zi6VdfG"
-
-    // Get accounts.
+    // convert input string to hex value
+    let sentData = this.state.web3.utils.toHex(e)
+    let parentID=4;
+    console.log(sentData);
+    // Get accounts
     this.state.web3.eth.getAccounts((error, accounts) => {
       sampleStorage.deployed().then((instance) => {
         sampleStorageInstance = instance
 
-        // Stores a given value, 5 by default.
-        return sampleStorageInstance.set(sentData, {from: accounts[0]})
-      }).then((result) => {
+        // calls createSample function on contract, mstores values in array
+        return sampleStorageInstance.createSample(sentData, parentID, {from: accounts[0]})
+      }).then((result, res2, res3) => {
         // Get the value from the contract to prove it worked.
-        return sampleStorageInstance.get.call(accounts[0])
+        return console.log(sampleStorageInstance.getSample.call(2, accounts[0]))
       }).then((result) => {
         // Update state with the result.
         return this.setState({ storageValue: result})
@@ -94,12 +97,15 @@ class App extends Component {
     })
   }
 
+
   render() {
     //map through soundFiles array, store list in hashList var
+
+
     let hashList
     if (this.state.soundFiles) {
       hashList = this.state.soundFiles.map(item => {
-        return <SoundFile fileHash={item.fileHash} parentHash={item.parentHash} fireContract={this.instantiateContract}/>
+        return <SoundFile fileHash={item.fileHash} parentHash={item.parentHash} fireContract={(e) => this.instantiateContract(e)}/>
       })
     }
 
@@ -120,12 +126,12 @@ class App extends Component {
             {hashList}
             <p>listen to audio samples, remix and reply to sounds. <br />
             this project is an experiment to see what happens when pseudonymous users can share and remix sounds stored on a permissionless database.</p>
-            <SoundFile fileHash={fileHash1}/>
+            <SoundFile fileHash={fileHash1} fireContract={(e) => this.instantiateContract(e)}/>
             <div className="tab"><SoundFile fileHash={fileHash2}/></div>
             <div className="tab"><div className="tab"><SoundFile fileHash={fileHash3}/> </div></div>
-            <SoundFile fileHash={fileHash1}/>
+            <SoundFile fileHash={fileHash1} fireContract={(e) => this.instantiateContract(e)}/>
             <div className="tab"><SoundFile fileHash={fileHash2}/></div>
-            <SoundFile fileHash={fileHash1}/>
+            <SoundFile fileHash={fileHash1} fireContract={(e) => this.instantiateContract(e)}/>
               <p><strong>line 59: </strong> {this.state.storageValue}</p>
               <Footer currentTrack={fileHash1}/>
             </div>

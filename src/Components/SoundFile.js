@@ -21,16 +21,21 @@ class SoundFile extends Component {
      this.setState({ showResponder: !this.state.showResponder })
    }
 
+   passValue(e){
+     //this works
+     this.props.fireContract(e)
+     // e.preventDefault()
+   }
+
   render() {
     let url="https://ipfs.io/ipfs/" + this.props.fileHash
-    let hash=this.props.fileHash
     // toggles label of respond button
     let respondButtonLabel=this.state.showResponder ? "close" : "respond"
     return (
-      <div className="sound-element">{hash} <br/>
+      <div className="sound-element">{this.props.fileHash} <br/>
         <ReactAudioPlayer src={url} controls />
         <button className="pure-button-active" onClick={this.handleClick}>{respondButtonLabel}</button>
-        {this.state.showResponder ? <SubmitForm parentHash={hash} fireContract={this.props.fireContract}/> : null }
+        {this.state.showResponder ? <SubmitForm parentHash={this.props.fileHash} fileHash={this.props.fileHash} passValue={(e) => this.passValue(e)}/> : null }
       </div>
     );
   }

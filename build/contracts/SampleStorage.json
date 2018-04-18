@@ -5,11 +5,15 @@
       "constant": false,
       "inputs": [
         {
-          "name": "x",
+          "name": "_hash",
           "type": "bytes"
+        },
+        {
+          "name": "_parent",
+          "type": "uint256"
         }
       ],
-      "name": "set",
+      "name": "createSample",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -17,12 +21,25 @@
     },
     {
       "constant": true,
-      "inputs": [],
-      "name": "get",
+      "inputs": [
+        {
+          "name": "i",
+          "type": "uint256"
+        }
+      ],
+      "name": "getSample",
       "outputs": [
         {
           "name": "",
           "type": "bytes"
+        },
+        {
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "name": "",
+          "type": "uint256"
         }
       ],
       "payable": false,
@@ -30,20 +47,20 @@
       "type": "function"
     }
   ],
-  "bytecode": "0x6060604052341561000f57600080fd5b6102e38061001e6000396000f30060606040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680630399321e146100515780636d4ce63c146100ae575b600080fd5b341561005c57600080fd5b6100ac600480803590602001908201803590602001908080601f0160208091040260200160405190810160405280939291908181526020018383808284378201915050505050509190505061013c565b005b34156100b957600080fd5b6100c1610156565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156101015780820151818401526020810190506100e6565b50505050905090810190601f16801561012e5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b80600090805190602001906101529291906101fe565b5050565b61015e61027e565b60008054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156101f45780601f106101c9576101008083540402835291602001916101f4565b820191906000526020600020905b8154815290600101906020018083116101d757829003601f168201915b5050505050905090565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061023f57805160ff191683800117855561026d565b8280016001018555821561026d579182015b8281111561026c578251825591602001919060010190610251565b5b50905061027a9190610292565b5090565b602060405190810160405280600081525090565b6102b491905b808211156102b0576000816000905550600101610298565b5090565b905600a165627a7a723058205386f0f766067f6c441c3dcfea83b196b988a03f6c7136087d9b40a646a4ca7c0029",
-  "deployedBytecode": "0x60606040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680630399321e146100515780636d4ce63c146100ae575b600080fd5b341561005c57600080fd5b6100ac600480803590602001908201803590602001908080601f0160208091040260200160405190810160405280939291908181526020018383808284378201915050505050509190505061013c565b005b34156100b957600080fd5b6100c1610156565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156101015780820151818401526020810190506100e6565b50505050905090810190601f16801561012e5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b80600090805190602001906101529291906101fe565b5050565b61015e61027e565b60008054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156101f45780601f106101c9576101008083540402835291602001916101f4565b820191906000526020600020905b8154815290600101906020018083116101d757829003601f168201915b5050505050905090565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061023f57805160ff191683800117855561026d565b8280016001018555821561026d579182015b8281111561026c578251825591602001919060010190610251565b5b50905061027a9190610292565b5090565b602060405190810160405280600081525090565b6102b491905b808211156102b0576000816000905550600101610298565b5090565b905600a165627a7a723058205386f0f766067f6c441c3dcfea83b196b988a03f6c7136087d9b40a646a4ca7c0029",
-  "sourceMap": "26:179:0:-;;;;;;;;;;;;;;;;;",
-  "deployedSourceMap": "26:179:0:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;74:54;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;132:71;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:2;8:100;;;99:1;94:3;90;84:5;80:1;75:3;71;64:6;52:2;49:1;45:3;40:15;;8:100;;;12:14;3:109;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;74:54:0;122:1;109:10;:14;;;;;;;;;;;;:::i;:::-;;74:54;:::o;132:71::-;168:5;;:::i;:::-;188:10;181:17;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;132:71;:::o;26:179::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o",
-  "source": "pragma solidity ^0.4.18;\n\ncontract SampleStorage {\n  bytes storedData;\n\n  function set(bytes x) public {\n    storedData = x;\n  }\n\n  function get() public view returns (bytes) {\n    return storedData;\n  }\n}\n",
+  "bytecode": "0x606060405260008055341561001357600080fd5b6104a0806100226000396000f30060606040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806360d1507c14610051578063a85f9d9a146100fb575b600080fd5b341561005c57600080fd5b6100726004808035906020019091905050610161565b6040518080602001848152602001838152602001828103825285818151815260200191508051906020019080838360005b838110156100be5780820151818401526020810190506100a3565b50505050905090810190601f1680156100eb5780820380516001836020036101000a031916815260200191505b5094505050505060405180910390f35b341561010657600080fd5b61015f600480803590602001908201803590602001908080601f01602080910402602001604051908101604052809392919081815260200183838082843782019150505050505091908035906020019091905050610277565b005b610169610302565b60008060018481548110151561017b57fe5b906000526020600020906003020160000160018581548110151561019b57fe5b9060005260206000209060030201600101546001868154811015156101bc57fe5b906000526020600020906003020160020154828054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156102635780601f1061023857610100808354040283529160200191610263565b820191906000526020600020905b81548152906001019060200180831161024657829003601f168201915b505050505092509250925092509193909250565b6001805480600101828161028b9190610316565b91600052602060002090600302016000606060405190810160405280868152602001600054815260200185815250909190915060008201518160000190805190602001906102da929190610348565b5060208201518160010155604082015181600201555050506001600054016000819055505050565b602060405190810160405280600081525090565b8154818355818115116103435760030281600302836000526020600020918201910161034291906103c8565b5b505050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061038957805160ff19168380011785556103b7565b828001600101855582156103b7579182015b828111156103b657825182559160200191906001019061039b565b5b5090506103c49190610407565b5090565b61040491905b8082111561040057600080820160006103e7919061042c565b60018201600090556002820160009055506003016103ce565b5090565b90565b61042991905b8082111561042557600081600090555060010161040d565b5090565b90565b50805460018160011615610100020316600290046000825580601f106104525750610471565b601f0160209004906000526020600020908101906104709190610407565b5b505600a165627a7a723058200102f60a691271630cafa30a55d932e8a8f13e20575fd7c62a747936c480def80029",
+  "deployedBytecode": "0x60606040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806360d1507c14610051578063a85f9d9a146100fb575b600080fd5b341561005c57600080fd5b6100726004808035906020019091905050610161565b6040518080602001848152602001838152602001828103825285818151815260200191508051906020019080838360005b838110156100be5780820151818401526020810190506100a3565b50505050905090810190601f1680156100eb5780820380516001836020036101000a031916815260200191505b5094505050505060405180910390f35b341561010657600080fd5b61015f600480803590602001908201803590602001908080601f01602080910402602001604051908101604052809392919081815260200183838082843782019150505050505091908035906020019091905050610277565b005b610169610302565b60008060018481548110151561017b57fe5b906000526020600020906003020160000160018581548110151561019b57fe5b9060005260206000209060030201600101546001868154811015156101bc57fe5b906000526020600020906003020160020154828054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156102635780601f1061023857610100808354040283529160200191610263565b820191906000526020600020905b81548152906001019060200180831161024657829003601f168201915b505050505092509250925092509193909250565b6001805480600101828161028b9190610316565b91600052602060002090600302016000606060405190810160405280868152602001600054815260200185815250909190915060008201518160000190805190602001906102da929190610348565b5060208201518160010155604082015181600201555050506001600054016000819055505050565b602060405190810160405280600081525090565b8154818355818115116103435760030281600302836000526020600020918201910161034291906103c8565b5b505050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061038957805160ff19168380011785556103b7565b828001600101855582156103b7579182015b828111156103b657825182559160200191906001019061039b565b5b5090506103c49190610407565b5090565b61040491905b8082111561040057600080820160006103e7919061042c565b60018201600090556002820160009055506003016103ce565b5090565b90565b61042991905b8082111561042557600081600090555060010161040d565b5090565b90565b50805460018160011615610100020316600290046000825580601f106104525750610471565b601f0160209004906000526020600020908101906104709190610407565b5b505600a165627a7a723058200102f60a691271630cafa30a55d932e8a8f13e20575fd7c62a747936c480def80029",
+  "sourceMap": "26:546:0:-;;;68:1;55:14;;26:546;;;;;;;;;;;;;;",
+  "deployedSourceMap": "26:546:0:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;380:189;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:2;8:100;;;99:1;94:3;90;84:5;80:1;75:3;71;64:6;52:2;49:1;45:3;40:15;;8:100;;;12:14;3:109;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;229:145:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;380:189;428:5;;:::i;:::-;435:4;441;502:7;510:1;502:10;;;;;;;;;;;;;;;;;;;;:19;;523:7;531:1;523:10;;;;;;;;;;;;;;;;;;;;:17;;;542:7;550:1;542:10;;;;;;;;;;;;;;;;;;;;:19;;;494:68;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;380:189;;;;;:::o;229:145::-;295:7;:45;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;308:31;;;;;;;;;315:5;308:31;;;;322:7;;308:31;;;;331:7;308:31;;;295:45;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;366:1;358:7;;:9;350:7;:17;;;;229:145;;:::o;26:546::-;;;;;;;;;;;;;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o",
+  "source": "pragma solidity ^0.4.18;\n\ncontract SampleStorage {\n    uint soundID=0;\n    struct Sample{\n        bytes fileHash;\n        uint hashID;\n        uint parentID;\n    }\n    //create array of structs\n    Sample[] private samples;\n\n    function createSample(bytes _hash, uint _parent) public {\n        samples.push(Sample(_hash, soundID, _parent));\n        soundID=soundID+1;\n    }\n\n    function getSample(uint i) public view returns (bytes, uint, uint){\n        //return properties of struct\n        return (samples[i].fileHash, samples[i].hashID, samples[i].parentID);\n    }\n\n}\n",
   "sourcePath": "/home/jeremu/resample-space/contracts/SampleStorage.sol",
   "ast": {
     "absolutePath": "/home/jeremu/resample-space/contracts/SampleStorage.sol",
     "exportedSymbols": {
       "SampleStorage": [
-        22
+        65
       ]
     },
-    "id": 23,
+    "id": 66,
     "nodeType": "SourceUnit",
     "nodes": [
       {
@@ -63,198 +80,432 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 22,
+        "id": 65,
         "linearizedBaseContracts": [
-          22
+          65
         ],
         "name": "SampleStorage",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 3,
-            "name": "storedData",
+            "id": 4,
+            "name": "soundID",
             "nodeType": "VariableDeclaration",
-            "scope": 22,
-            "src": "53:16:0",
+            "scope": 65,
+            "src": "55:14:0",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_bytes_storage",
-              "typeString": "bytes storage ref"
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
             },
             "typeName": {
               "id": 2,
-              "name": "bytes",
+              "name": "uint",
               "nodeType": "ElementaryTypeName",
-              "src": "53:5:0",
+              "src": "55:4:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_bytes_storage_ptr",
-                "typeString": "bytes storage pointer"
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
               }
             },
-            "value": null,
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "30",
+              "id": 3,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "68:1:0",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_0_by_1",
+                "typeString": "int_const 0"
+              },
+              "value": "0"
+            },
             "visibility": "internal"
           },
           {
+            "canonicalName": "SampleStorage.Sample",
+            "id": 11,
+            "members": [
+              {
+                "constant": false,
+                "id": 6,
+                "name": "fileHash",
+                "nodeType": "VariableDeclaration",
+                "scope": 11,
+                "src": "98:14:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes_storage_ptr",
+                  "typeString": "bytes storage pointer"
+                },
+                "typeName": {
+                  "id": 5,
+                  "name": "bytes",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "98:5:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_storage_ptr",
+                    "typeString": "bytes storage pointer"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 8,
+                "name": "hashID",
+                "nodeType": "VariableDeclaration",
+                "scope": 11,
+                "src": "122:11:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 7,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "122:4:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 10,
+                "name": "parentID",
+                "nodeType": "VariableDeclaration",
+                "scope": 11,
+                "src": "143:13:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 9,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "143:4:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "Sample",
+            "nodeType": "StructDefinition",
+            "scope": 65,
+            "src": "75:88:0",
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 14,
+            "name": "samples",
+            "nodeType": "VariableDeclaration",
+            "scope": 65,
+            "src": "198:24:0",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_array$_t_struct$_Sample_$11_storage_$dyn_storage",
+              "typeString": "struct SampleStorage.Sample storage ref[] storage ref"
+            },
+            "typeName": {
+              "baseType": {
+                "contractScope": null,
+                "id": 12,
+                "name": "Sample",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 11,
+                "src": "198:6:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_Sample_$11_storage_ptr",
+                  "typeString": "struct SampleStorage.Sample storage pointer"
+                }
+              },
+              "id": 13,
+              "length": null,
+              "nodeType": "ArrayTypeName",
+              "src": "198:8:0",
+              "typeDescriptions": {
+                "typeIdentifier": "t_array$_t_struct$_Sample_$11_storage_$dyn_storage_ptr",
+                "typeString": "struct SampleStorage.Sample storage ref[] storage pointer"
+              }
+            },
+            "value": null,
+            "visibility": "private"
+          },
+          {
             "body": {
-              "id": 12,
+              "id": 37,
               "nodeType": "Block",
-              "src": "103:25:0",
+              "src": "285:89:0",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 10,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "id": 25,
+                            "name": "_hash",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 16,
+                            "src": "315:5:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_bytes_memory_ptr",
+                              "typeString": "bytes memory"
+                            }
+                          },
+                          {
+                            "argumentTypes": null,
+                            "id": 26,
+                            "name": "soundID",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4,
+                            "src": "322:7:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          {
+                            "argumentTypes": null,
+                            "id": 27,
+                            "name": "_parent",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 18,
+                            "src": "331:7:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_bytes_memory_ptr",
+                              "typeString": "bytes memory"
+                            },
+                            {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            },
+                            {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          ],
+                          "id": 24,
+                          "name": "Sample",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 11,
+                          "src": "308:6:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_struct$_Sample_$11_storage_ptr_$",
+                            "typeString": "type(struct SampleStorage.Sample storage pointer)"
+                          }
+                        },
+                        "id": 28,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "structConstructorCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "308:31:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Sample_$11_memory",
+                          "typeString": "struct SampleStorage.Sample memory"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_Sample_$11_memory",
+                          "typeString": "struct SampleStorage.Sample memory"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 21,
+                        "name": "samples",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 14,
+                        "src": "295:7:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_struct$_Sample_$11_storage_$dyn_storage",
+                          "typeString": "struct SampleStorage.Sample storage ref[] storage ref"
+                        }
+                      },
+                      "id": 23,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "push",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "295:12:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_arraypush_nonpayable$_t_struct$_Sample_$11_storage_$returns$_t_uint256_$",
+                        "typeString": "function (struct SampleStorage.Sample storage ref) returns (uint256)"
+                      }
+                    },
+                    "id": 29,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "295:45:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 30,
+                  "nodeType": "ExpressionStatement",
+                  "src": "295:45:0"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 35,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 8,
-                      "name": "storedData",
+                      "id": 31,
+                      "name": "soundID",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3,
-                      "src": "109:10:0",
+                      "referencedDeclaration": 4,
+                      "src": "350:7:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_bytes_storage",
-                        "typeString": "bytes storage ref"
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
                       }
                     },
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 9,
-                      "name": "x",
-                      "nodeType": "Identifier",
-                      "overloadedDeclarations": [],
-                      "referencedDeclaration": 5,
-                      "src": "122:1:0",
+                      "commonType": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "id": 34,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "leftExpression": {
+                        "argumentTypes": null,
+                        "id": 32,
+                        "name": "soundID",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 4,
+                        "src": "358:7:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "nodeType": "BinaryOperation",
+                      "operator": "+",
+                      "rightExpression": {
+                        "argumentTypes": null,
+                        "hexValue": "31",
+                        "id": 33,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "number",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "366:1:0",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_rational_1_by_1",
+                          "typeString": "int_const 1"
+                        },
+                        "value": "1"
+                      },
+                      "src": "358:9:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_bytes_memory_ptr",
-                        "typeString": "bytes memory"
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
                       }
                     },
-                    "src": "109:14:0",
+                    "src": "350:17:0",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_bytes_storage",
-                      "typeString": "bytes storage ref"
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
                     }
                   },
-                  "id": 11,
+                  "id": 36,
                   "nodeType": "ExpressionStatement",
-                  "src": "109:14:0"
+                  "src": "350:17:0"
                 }
               ]
             },
-            "id": 13,
+            "id": 38,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
             "modifiers": [],
-            "name": "set",
+            "name": "createSample",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 6,
-              "nodeType": "ParameterList",
-              "parameters": [
-                {
-                  "constant": false,
-                  "id": 5,
-                  "name": "x",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 13,
-                  "src": "87:7:0",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_bytes_memory_ptr",
-                    "typeString": "bytes memory"
-                  },
-                  "typeName": {
-                    "id": 4,
-                    "name": "bytes",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "87:5:0",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_bytes_storage_ptr",
-                      "typeString": "bytes storage pointer"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                }
-              ],
-              "src": "86:9:0"
-            },
-            "payable": false,
-            "returnParameters": {
-              "id": 7,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "103:0:0"
-            },
-            "scope": 22,
-            "src": "74:54:0",
-            "stateMutability": "nonpayable",
-            "superFunction": null,
-            "visibility": "public"
-          },
-          {
-            "body": {
-              "id": 20,
-              "nodeType": "Block",
-              "src": "175:28:0",
-              "statements": [
-                {
-                  "expression": {
-                    "argumentTypes": null,
-                    "id": 18,
-                    "name": "storedData",
-                    "nodeType": "Identifier",
-                    "overloadedDeclarations": [],
-                    "referencedDeclaration": 3,
-                    "src": "188:10:0",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_bytes_storage",
-                      "typeString": "bytes storage ref"
-                    }
-                  },
-                  "functionReturnParameters": 17,
-                  "id": 19,
-                  "nodeType": "Return",
-                  "src": "181:17:0"
-                }
-              ]
-            },
-            "id": 21,
-            "implemented": true,
-            "isConstructor": false,
-            "isDeclaredConst": true,
-            "modifiers": [],
-            "name": "get",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 14,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "144:2:0"
-            },
-            "payable": false,
-            "returnParameters": {
-              "id": 17,
+              "id": 19,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
                   "id": 16,
-                  "name": "",
+                  "name": "_hash",
                   "nodeType": "VariableDeclaration",
-                  "scope": 21,
-                  "src": "168:5:0",
+                  "scope": 38,
+                  "src": "251:11:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -265,7 +516,7 @@
                     "id": 15,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
-                    "src": "168:5:0",
+                    "src": "251:5:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_storage_ptr",
                       "typeString": "bytes storage pointer"
@@ -273,31 +524,395 @@
                   },
                   "value": null,
                   "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 18,
+                  "name": "_parent",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 38,
+                  "src": "264:12:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 17,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "264:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
                 }
               ],
-              "src": "167:7:0"
+              "src": "250:27:0"
             },
-            "scope": 22,
-            "src": "132:71:0",
+            "payable": false,
+            "returnParameters": {
+              "id": 20,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "285:0:0"
+            },
+            "scope": 65,
+            "src": "229:145:0",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 63,
+              "nodeType": "Block",
+              "src": "446:123:0",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "components": [
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "baseExpression": {
+                            "argumentTypes": null,
+                            "id": 49,
+                            "name": "samples",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 14,
+                            "src": "502:7:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_array$_t_struct$_Sample_$11_storage_$dyn_storage",
+                              "typeString": "struct SampleStorage.Sample storage ref[] storage ref"
+                            }
+                          },
+                          "id": 51,
+                          "indexExpression": {
+                            "argumentTypes": null,
+                            "id": 50,
+                            "name": "i",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 40,
+                            "src": "510:1:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "502:10:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Sample_$11_storage",
+                            "typeString": "struct SampleStorage.Sample storage ref"
+                          }
+                        },
+                        "id": 52,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "fileHash",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 6,
+                        "src": "502:19:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_storage",
+                          "typeString": "bytes storage ref"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "baseExpression": {
+                            "argumentTypes": null,
+                            "id": 53,
+                            "name": "samples",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 14,
+                            "src": "523:7:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_array$_t_struct$_Sample_$11_storage_$dyn_storage",
+                              "typeString": "struct SampleStorage.Sample storage ref[] storage ref"
+                            }
+                          },
+                          "id": 55,
+                          "indexExpression": {
+                            "argumentTypes": null,
+                            "id": 54,
+                            "name": "i",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 40,
+                            "src": "531:1:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "523:10:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Sample_$11_storage",
+                            "typeString": "struct SampleStorage.Sample storage ref"
+                          }
+                        },
+                        "id": 56,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "hashID",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 8,
+                        "src": "523:17:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "baseExpression": {
+                            "argumentTypes": null,
+                            "id": 57,
+                            "name": "samples",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 14,
+                            "src": "542:7:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_array$_t_struct$_Sample_$11_storage_$dyn_storage",
+                              "typeString": "struct SampleStorage.Sample storage ref[] storage ref"
+                            }
+                          },
+                          "id": 59,
+                          "indexExpression": {
+                            "argumentTypes": null,
+                            "id": 58,
+                            "name": "i",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 40,
+                            "src": "550:1:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "542:10:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Sample_$11_storage",
+                            "typeString": "struct SampleStorage.Sample storage ref"
+                          }
+                        },
+                        "id": 60,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "parentID",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 10,
+                        "src": "542:19:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "id": 61,
+                    "isConstant": false,
+                    "isInlineArray": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "TupleExpression",
+                    "src": "501:61:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$_t_bytes_storage_$_t_uint256_$_t_uint256_$",
+                      "typeString": "tuple(bytes storage ref,uint256,uint256)"
+                    }
+                  },
+                  "functionReturnParameters": 48,
+                  "id": 62,
+                  "nodeType": "Return",
+                  "src": "494:68:0"
+                }
+              ]
+            },
+            "id": 64,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getSample",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 41,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 40,
+                  "name": "i",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 64,
+                  "src": "399:6:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 39,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "399:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "398:8:0"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 48,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 43,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 64,
+                  "src": "428:5:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes memory"
+                  },
+                  "typeName": {
+                    "id": 42,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "428:5:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes storage pointer"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 45,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 64,
+                  "src": "435:4:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 44,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "435:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 47,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 64,
+                  "src": "441:4:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 46,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "441:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "427:19:0"
+            },
+            "scope": 65,
+            "src": "380:189:0",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 23,
-        "src": "26:179:0"
+        "scope": 66,
+        "src": "26:546:0"
       }
     ],
-    "src": "0:206:0"
+    "src": "0:573:0"
   },
   "legacyAST": {
     "absolutePath": "/home/jeremu/resample-space/contracts/SampleStorage.sol",
     "exportedSymbols": {
       "SampleStorage": [
-        22
+        65
       ]
     },
-    "id": 23,
+    "id": 66,
     "nodeType": "SourceUnit",
     "nodes": [
       {
@@ -317,198 +932,432 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 22,
+        "id": 65,
         "linearizedBaseContracts": [
-          22
+          65
         ],
         "name": "SampleStorage",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 3,
-            "name": "storedData",
+            "id": 4,
+            "name": "soundID",
             "nodeType": "VariableDeclaration",
-            "scope": 22,
-            "src": "53:16:0",
+            "scope": 65,
+            "src": "55:14:0",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_bytes_storage",
-              "typeString": "bytes storage ref"
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
             },
             "typeName": {
               "id": 2,
-              "name": "bytes",
+              "name": "uint",
               "nodeType": "ElementaryTypeName",
-              "src": "53:5:0",
+              "src": "55:4:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_bytes_storage_ptr",
-                "typeString": "bytes storage pointer"
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
               }
             },
-            "value": null,
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "30",
+              "id": 3,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "68:1:0",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_0_by_1",
+                "typeString": "int_const 0"
+              },
+              "value": "0"
+            },
             "visibility": "internal"
           },
           {
+            "canonicalName": "SampleStorage.Sample",
+            "id": 11,
+            "members": [
+              {
+                "constant": false,
+                "id": 6,
+                "name": "fileHash",
+                "nodeType": "VariableDeclaration",
+                "scope": 11,
+                "src": "98:14:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes_storage_ptr",
+                  "typeString": "bytes storage pointer"
+                },
+                "typeName": {
+                  "id": 5,
+                  "name": "bytes",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "98:5:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_storage_ptr",
+                    "typeString": "bytes storage pointer"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 8,
+                "name": "hashID",
+                "nodeType": "VariableDeclaration",
+                "scope": 11,
+                "src": "122:11:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 7,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "122:4:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 10,
+                "name": "parentID",
+                "nodeType": "VariableDeclaration",
+                "scope": 11,
+                "src": "143:13:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 9,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "143:4:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "Sample",
+            "nodeType": "StructDefinition",
+            "scope": 65,
+            "src": "75:88:0",
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 14,
+            "name": "samples",
+            "nodeType": "VariableDeclaration",
+            "scope": 65,
+            "src": "198:24:0",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_array$_t_struct$_Sample_$11_storage_$dyn_storage",
+              "typeString": "struct SampleStorage.Sample storage ref[] storage ref"
+            },
+            "typeName": {
+              "baseType": {
+                "contractScope": null,
+                "id": 12,
+                "name": "Sample",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 11,
+                "src": "198:6:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_Sample_$11_storage_ptr",
+                  "typeString": "struct SampleStorage.Sample storage pointer"
+                }
+              },
+              "id": 13,
+              "length": null,
+              "nodeType": "ArrayTypeName",
+              "src": "198:8:0",
+              "typeDescriptions": {
+                "typeIdentifier": "t_array$_t_struct$_Sample_$11_storage_$dyn_storage_ptr",
+                "typeString": "struct SampleStorage.Sample storage ref[] storage pointer"
+              }
+            },
+            "value": null,
+            "visibility": "private"
+          },
+          {
             "body": {
-              "id": 12,
+              "id": 37,
               "nodeType": "Block",
-              "src": "103:25:0",
+              "src": "285:89:0",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 10,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "id": 25,
+                            "name": "_hash",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 16,
+                            "src": "315:5:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_bytes_memory_ptr",
+                              "typeString": "bytes memory"
+                            }
+                          },
+                          {
+                            "argumentTypes": null,
+                            "id": 26,
+                            "name": "soundID",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4,
+                            "src": "322:7:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          {
+                            "argumentTypes": null,
+                            "id": 27,
+                            "name": "_parent",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 18,
+                            "src": "331:7:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_bytes_memory_ptr",
+                              "typeString": "bytes memory"
+                            },
+                            {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            },
+                            {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          ],
+                          "id": 24,
+                          "name": "Sample",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 11,
+                          "src": "308:6:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_struct$_Sample_$11_storage_ptr_$",
+                            "typeString": "type(struct SampleStorage.Sample storage pointer)"
+                          }
+                        },
+                        "id": 28,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "structConstructorCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "308:31:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Sample_$11_memory",
+                          "typeString": "struct SampleStorage.Sample memory"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_Sample_$11_memory",
+                          "typeString": "struct SampleStorage.Sample memory"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 21,
+                        "name": "samples",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 14,
+                        "src": "295:7:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_struct$_Sample_$11_storage_$dyn_storage",
+                          "typeString": "struct SampleStorage.Sample storage ref[] storage ref"
+                        }
+                      },
+                      "id": 23,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "push",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "295:12:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_arraypush_nonpayable$_t_struct$_Sample_$11_storage_$returns$_t_uint256_$",
+                        "typeString": "function (struct SampleStorage.Sample storage ref) returns (uint256)"
+                      }
+                    },
+                    "id": 29,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "295:45:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 30,
+                  "nodeType": "ExpressionStatement",
+                  "src": "295:45:0"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 35,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 8,
-                      "name": "storedData",
+                      "id": 31,
+                      "name": "soundID",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3,
-                      "src": "109:10:0",
+                      "referencedDeclaration": 4,
+                      "src": "350:7:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_bytes_storage",
-                        "typeString": "bytes storage ref"
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
                       }
                     },
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 9,
-                      "name": "x",
-                      "nodeType": "Identifier",
-                      "overloadedDeclarations": [],
-                      "referencedDeclaration": 5,
-                      "src": "122:1:0",
+                      "commonType": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "id": 34,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "leftExpression": {
+                        "argumentTypes": null,
+                        "id": 32,
+                        "name": "soundID",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 4,
+                        "src": "358:7:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "nodeType": "BinaryOperation",
+                      "operator": "+",
+                      "rightExpression": {
+                        "argumentTypes": null,
+                        "hexValue": "31",
+                        "id": 33,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "number",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "366:1:0",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_rational_1_by_1",
+                          "typeString": "int_const 1"
+                        },
+                        "value": "1"
+                      },
+                      "src": "358:9:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_bytes_memory_ptr",
-                        "typeString": "bytes memory"
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
                       }
                     },
-                    "src": "109:14:0",
+                    "src": "350:17:0",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_bytes_storage",
-                      "typeString": "bytes storage ref"
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
                     }
                   },
-                  "id": 11,
+                  "id": 36,
                   "nodeType": "ExpressionStatement",
-                  "src": "109:14:0"
+                  "src": "350:17:0"
                 }
               ]
             },
-            "id": 13,
+            "id": 38,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
             "modifiers": [],
-            "name": "set",
+            "name": "createSample",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 6,
-              "nodeType": "ParameterList",
-              "parameters": [
-                {
-                  "constant": false,
-                  "id": 5,
-                  "name": "x",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 13,
-                  "src": "87:7:0",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_bytes_memory_ptr",
-                    "typeString": "bytes memory"
-                  },
-                  "typeName": {
-                    "id": 4,
-                    "name": "bytes",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "87:5:0",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_bytes_storage_ptr",
-                      "typeString": "bytes storage pointer"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                }
-              ],
-              "src": "86:9:0"
-            },
-            "payable": false,
-            "returnParameters": {
-              "id": 7,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "103:0:0"
-            },
-            "scope": 22,
-            "src": "74:54:0",
-            "stateMutability": "nonpayable",
-            "superFunction": null,
-            "visibility": "public"
-          },
-          {
-            "body": {
-              "id": 20,
-              "nodeType": "Block",
-              "src": "175:28:0",
-              "statements": [
-                {
-                  "expression": {
-                    "argumentTypes": null,
-                    "id": 18,
-                    "name": "storedData",
-                    "nodeType": "Identifier",
-                    "overloadedDeclarations": [],
-                    "referencedDeclaration": 3,
-                    "src": "188:10:0",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_bytes_storage",
-                      "typeString": "bytes storage ref"
-                    }
-                  },
-                  "functionReturnParameters": 17,
-                  "id": 19,
-                  "nodeType": "Return",
-                  "src": "181:17:0"
-                }
-              ]
-            },
-            "id": 21,
-            "implemented": true,
-            "isConstructor": false,
-            "isDeclaredConst": true,
-            "modifiers": [],
-            "name": "get",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 14,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "144:2:0"
-            },
-            "payable": false,
-            "returnParameters": {
-              "id": 17,
+              "id": 19,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
                   "id": 16,
-                  "name": "",
+                  "name": "_hash",
                   "nodeType": "VariableDeclaration",
-                  "scope": 21,
-                  "src": "168:5:0",
+                  "scope": 38,
+                  "src": "251:11:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -519,7 +1368,7 @@
                     "id": 15,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
-                    "src": "168:5:0",
+                    "src": "251:5:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_storage_ptr",
                       "typeString": "bytes storage pointer"
@@ -527,22 +1376,386 @@
                   },
                   "value": null,
                   "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 18,
+                  "name": "_parent",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 38,
+                  "src": "264:12:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 17,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "264:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
                 }
               ],
-              "src": "167:7:0"
+              "src": "250:27:0"
             },
-            "scope": 22,
-            "src": "132:71:0",
+            "payable": false,
+            "returnParameters": {
+              "id": 20,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "285:0:0"
+            },
+            "scope": 65,
+            "src": "229:145:0",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 63,
+              "nodeType": "Block",
+              "src": "446:123:0",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "components": [
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "baseExpression": {
+                            "argumentTypes": null,
+                            "id": 49,
+                            "name": "samples",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 14,
+                            "src": "502:7:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_array$_t_struct$_Sample_$11_storage_$dyn_storage",
+                              "typeString": "struct SampleStorage.Sample storage ref[] storage ref"
+                            }
+                          },
+                          "id": 51,
+                          "indexExpression": {
+                            "argumentTypes": null,
+                            "id": 50,
+                            "name": "i",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 40,
+                            "src": "510:1:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "502:10:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Sample_$11_storage",
+                            "typeString": "struct SampleStorage.Sample storage ref"
+                          }
+                        },
+                        "id": 52,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "fileHash",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 6,
+                        "src": "502:19:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_storage",
+                          "typeString": "bytes storage ref"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "baseExpression": {
+                            "argumentTypes": null,
+                            "id": 53,
+                            "name": "samples",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 14,
+                            "src": "523:7:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_array$_t_struct$_Sample_$11_storage_$dyn_storage",
+                              "typeString": "struct SampleStorage.Sample storage ref[] storage ref"
+                            }
+                          },
+                          "id": 55,
+                          "indexExpression": {
+                            "argumentTypes": null,
+                            "id": 54,
+                            "name": "i",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 40,
+                            "src": "531:1:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "523:10:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Sample_$11_storage",
+                            "typeString": "struct SampleStorage.Sample storage ref"
+                          }
+                        },
+                        "id": 56,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "hashID",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 8,
+                        "src": "523:17:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "baseExpression": {
+                            "argumentTypes": null,
+                            "id": 57,
+                            "name": "samples",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 14,
+                            "src": "542:7:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_array$_t_struct$_Sample_$11_storage_$dyn_storage",
+                              "typeString": "struct SampleStorage.Sample storage ref[] storage ref"
+                            }
+                          },
+                          "id": 59,
+                          "indexExpression": {
+                            "argumentTypes": null,
+                            "id": 58,
+                            "name": "i",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 40,
+                            "src": "550:1:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "542:10:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Sample_$11_storage",
+                            "typeString": "struct SampleStorage.Sample storage ref"
+                          }
+                        },
+                        "id": 60,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "parentID",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 10,
+                        "src": "542:19:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "id": 61,
+                    "isConstant": false,
+                    "isInlineArray": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "TupleExpression",
+                    "src": "501:61:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$_t_bytes_storage_$_t_uint256_$_t_uint256_$",
+                      "typeString": "tuple(bytes storage ref,uint256,uint256)"
+                    }
+                  },
+                  "functionReturnParameters": 48,
+                  "id": 62,
+                  "nodeType": "Return",
+                  "src": "494:68:0"
+                }
+              ]
+            },
+            "id": 64,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getSample",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 41,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 40,
+                  "name": "i",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 64,
+                  "src": "399:6:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 39,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "399:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "398:8:0"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 48,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 43,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 64,
+                  "src": "428:5:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes memory"
+                  },
+                  "typeName": {
+                    "id": 42,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "428:5:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes storage pointer"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 45,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 64,
+                  "src": "435:4:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 44,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "435:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 47,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 64,
+                  "src": "441:4:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 46,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "441:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "427:19:0"
+            },
+            "scope": 65,
+            "src": "380:189:0",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 23,
-        "src": "26:179:0"
+        "scope": 66,
+        "src": "26:546:0"
       }
     ],
-    "src": "0:206:0"
+    "src": "0:573:0"
   },
   "compiler": {
     "name": "solc",
@@ -552,10 +1765,10 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xf12b5dd4ead5f743c6baa640b0216200e89b60da",
-      "transactionHash": "0x8c895982f3d4c690edf70a20c315b5cde66a8d7430ecb043445e33770fe28baa"
+      "address": "0x345ca3e014aaf5dca488057592ee47305d9b3e10",
+      "transactionHash": "0xed59c9f0662190fb2f56ca6f3745204e57f634809526286699d37965339cb377"
     }
   },
   "schemaVersion": "2.0.0",
-  "updatedAt": "2018-04-17T09:30:03.277Z"
+  "updatedAt": "2018-04-18T11:21:44.254Z"
 }

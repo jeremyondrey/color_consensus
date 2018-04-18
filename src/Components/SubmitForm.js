@@ -5,7 +5,6 @@ class SubmitForm extends Component {
     super(props)
     this.state = {
       parentHash: props.parentHash,
-      responseHash: null,
       value: ''
     }
     this.handleChange = this.handleChange.bind(this);
@@ -17,8 +16,8 @@ class SubmitForm extends Component {
   }
 
   handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.value);
-    this.props.fireContract()
+    alert('Replying with ' + this.state.value + '. Confirm that this hash is correct, then open Metamask and sign the transaction.');
+    this.props.passValue(this.state.value)
     event.preventDefault();
   }
 
