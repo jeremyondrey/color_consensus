@@ -21,6 +21,7 @@ class App extends Component {
 
     this.state = {
       storageValue: "hello",
+      listLength: null,
       web3: null,
       soundFiles: []
     }
@@ -30,16 +31,25 @@ class App extends Component {
   componentWillMount() {
     this.setState({soundFiles: [{
       fileHash: "Qmctyojt2Rc7PbKbi3CM9zpoHR91qhNpgj6Jkq2Zi6VdfG",
-      parentHash: "Qmctyojt2Rc7PbKbi3CM9zpoHR91qhNpgj6Jkq2Zi6VdfG"
+      fileID: 0,
+      parentID: 0
     },
     {
       fileHash: "QmSnUCS7wRhkcJj97d8poXM9CvH45VGjUBnEUjLZW49BcH",
-      parentHash: "Qmctyojt2Rc7PbKbi3CM9zpoHR91qhNpgj6Jkq2Zi6VdfG"
+      fileID: 1,
+      parentID: 1
+    },
+    {
+      fileHash: "QmUhD25MRvghabeUxPxc7qBtzSnZvQn8DG2WgrbMkPRqRF",
+      fileID: 2,
+      parentID: 1
     },
     {
       fileHash: "Qmevt9AJLAJyBo8KtxiKJ8qGNNY57fJFJqVXkhPVXHZzPs",
-      parentHash: "Qmctyojt2Rc7PbKbi3CM9zpoHR91qhNpgj6Jkq2Zi6VdfG"
+      fileID: 3,
+      parentID: 0
     }]
+
   })
 
     // Get network provider and web3 instance.
@@ -53,14 +63,22 @@ class App extends Component {
 
       // Instantiate contract once web3 provided.
       // this.instantiateContract()
+      this.getArrayList()
     })
     .catch(() => {
       console.log('Error finding web3.')
     })
   }
 
+  testIfWav(filename) {
+    if (filename.split('.').pop() === "wav") {
+      return "true"
+    } else return "nep"
+}
+
   instantiateContract(e) {
-    console.log(e, "it works!");
+    console.log(this.testIfWav(e))
+    console.log(e, "it works!")
     // e.preventDefault()
     /*
      * SMART CONTRACT EXAMPLE
@@ -87,53 +105,65 @@ class App extends Component {
 
         // calls createSample function on contract, mstores values in array
         return sampleStorageInstance.createSample(sentData, parentID, {from: accounts[0]})
-      }).then((result, res2, res3) => {
-        // Get the value from the contract to prove it worked.
-        return console.log(sampleStorageInstance.getSample.call(2, accounts[0]))
       }).then((result) => {
-        // Update state with the result.
-        return this.setState({ storageValue: result})
+        // Get the value from the contract to prove it worked.
+        return sampleStorageInstance.getSample.call(6, accounts[0])
+      }).then((result) => {
+        // Update state. result is an array, so return the value at index 0
+        return this.setState({ storageValue: result[0]})
       })
     })
   }
 
+    getArrayList() {
+      // e.preventDefault()
+      const contract = require('truffle-contract')
+      const sampleStorage = contract(SampleStorageContract)
+      sampleStorage.setProvider(this.state.web3.currentProvider)
+      // Declaring this for later so we can chain functions on SampleStorage.
+      var sampleStorageInstance
+        sampleStorage.deployed().then((instance) => {
+          sampleStorageInstance = instance
+          // gets sample array length
+          return sampleStorageInstance.getSampleCount.call()
+        }).then((result) => {
+          // Update state
+          console.log(result.c[0])
+          return this.setState({ listLength: result.c[0]})
+        })
+
+    }
 
   render() {
     //map through soundFiles array, store list in hashList var
 
-
     let hashList
+    let testParent=7
     if (this.state.soundFiles) {
       hashList = this.state.soundFiles.map(item => {
-        return <SoundFile fileHash={item.fileHash} parentHash={item.parentHash} fireContract={(e) => this.instantiateContract(e)}/>
+        if (item.parentID !== 0) {
+          return <div className="tab"> <SoundFile fileHash={item.fileHash} parentHash={item.parentHash} fireContract={(e) => this.instantiateContract(e)}/> </div>
+        }else return <SoundFile fileHash={item.fileHash} parentHash={item.parentHash} fireContract={(e) => this.instantiateContract(e)}/>
       })
     }
-
-    let fileHash1="Qmctyojt2Rc7PbKbi3CM9zpoHR91qhNpgj6Jkq2Zi6VdfG"
-    let fileHash2="QmSnUCS7wRhkcJj97d8poXM9CvH45VGjUBnEUjLZW49BcH"
-    let fileHash3="Qmevt9AJLAJyBo8KtxiKJ8qGNNY57fJFJqVXkhPVXHZzPs"
-    // jsonSoundList.push({description:'helloagain_again',fileHash:'verylongfilehash'});
+        // jsonSoundList.push({description:'helloagain_again',fileHash:'verylongfilehash'});
     return (
       <div className="App">
         <nav className="navbar pure-menu pure-menu-horizontal">
             <a href="#" className="pure-menu-heading pure-menu-link">resample.space</a>
         </nav>
-
         <main className="container">
           <div className="pure-g">
             <div className="pure-u-1-1">
+            <h4> current number of elements: {this.state.listLength} </h4>
             <h1>Blockchain based sampling database</h1>
             {hashList}
             <p>listen to audio samples, remix and reply to sounds. <br />
-            this project is an experiment to see what happens when pseudonymous users can share and remix sounds stored on a permissionless database.</p>
-            <SoundFile fileHash={fileHash1} fireContract={(e) => this.instantiateContract(e)}/>
-            <div className="tab"><SoundFile fileHash={fileHash2}/></div>
-            <div className="tab"><div className="tab"><SoundFile fileHash={fileHash3}/> </div></div>
-            <SoundFile fileHash={fileHash1} fireContract={(e) => this.instantiateContract(e)}/>
-            <div className="tab"><SoundFile fileHash={fileHash2}/></div>
-            <SoundFile fileHash={fileHash1} fireContract={(e) => this.instantiateContract(e)}/>
-              <p><strong>line 59: </strong> {this.state.storageValue}</p>
-              <Footer currentTrack={fileHash1}/>
+            this project is an experiment to see what happens when pseudonymous users can share and remix sounds stored on a permissionless database.<br />
+            keep in mind that all content shared here is public and immutable
+            </p>
+            <p><strong>line 59: </strong> {this.state.storageValue}</p>
+              <Footer currentTrack={"Qmevt9AJLAJyBo8KtxiKJ8qGNNY57fJFJqVXkhPVXHZzPs"}/>
             </div>
           </div>
         </main>

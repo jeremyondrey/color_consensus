@@ -16,7 +16,7 @@ class SubmitForm extends Component {
   }
 
   handleSubmit(event) {
-    alert('Replying with ' + this.state.value + '. Confirm that this hash is correct, then open Metamask and sign the transaction.');
+    alert('Replying with ' + this.state.value + '. Confirm that this hash is correct, then open Metamask and sign the transaction. Note that inputting anything other than a hash linking to a sound file will show up as a comment instead.');
     this.props.passValue(this.state.value)
     event.preventDefault();
   }

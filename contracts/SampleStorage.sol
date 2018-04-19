@@ -20,4 +20,8 @@ contract SampleStorage {
         return (samples[i].fileHash, samples[i].hashID, samples[i].parentID);
     }
 
+    function getSampleCount() public view returns(uint count) {
+        return samples.length;
+    }
+
 }
