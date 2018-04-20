@@ -6,8 +6,8 @@ class SoundFile extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      fileHash: props.fileHash,
-      parentHash: 'QmfaLOHlkhHkuhfd',
+      fileHash: this.props.fileHash,
+      parentHash: this.props.parentID,
       showResponder: false
     }
     // binds this keyword to app context
@@ -23,7 +23,8 @@ class SoundFile extends Component {
 
    passValue(e){
      //this works
-     this.props.fireContract(e)
+     console.log("tewst",e,this.state.fileHash);
+     this.props.fireContract(e,this.props.fileHash)
      // e.preventDefault()
    }
 
@@ -35,7 +36,7 @@ class SoundFile extends Component {
       <div className="sound-element">{this.props.fileHash} <br/>
         <ReactAudioPlayer src={url} controls />
         <button className="pure-button-active" onClick={this.handleClick}>{respondButtonLabel}</button>
-        {this.state.showResponder ? <SubmitForm parentHash={this.props.fileHash} fileHash={this.props.fileHash} passValue={(e) => this.passValue(e)}/> : null }
+        {this.state.showResponder ? <SubmitForm parentHash={this.props.fileHash} passValue={(e) => this.passValue(e)}/> : null }
       </div>
     );
   }

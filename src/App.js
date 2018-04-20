@@ -63,7 +63,7 @@ class App extends Component {
 
       // Instantiate contract once web3 provided.
       // this.instantiateContract()
-      this.getArrayList()
+      this.getArrayLength()
     })
     .catch(() => {
       console.log('Error finding web3.')
@@ -76,9 +76,9 @@ class App extends Component {
     } else return "nep"
 }
 
-  instantiateContract(e) {
+  instantiateContract(e,f) {
     console.log(this.testIfWav(e))
-    console.log(e, "it works!")
+    console.log(e, "it works! ",f)
     // e.preventDefault()
     /*
      * SMART CONTRACT EXAMPLE
@@ -115,7 +115,7 @@ class App extends Component {
     })
   }
 
-    getArrayList() {
+    getArrayLength() {
       // e.preventDefault()
       const contract = require('truffle-contract')
       const sampleStorage = contract(SampleStorageContract)
@@ -130,20 +130,27 @@ class App extends Component {
           // Update state
           console.log(result.c[0])
           return this.setState({ listLength: result.c[0]})
+        }).then( async(items) => {
+          // loop through array stored in smart contract
+          let array=[]
+          for (let i = 0; i < this.state.listLength; i++) {
+            const result = await sampleStorageInstance.getSample.call(i)
+            console.log(result[0]);
+            array.push(result[0])
+            console.log(array);
+          }
         })
 
     }
 
   render() {
     //map through soundFiles array, store list in hashList var
-
     let hashList
-    let testParent=7
     if (this.state.soundFiles) {
       hashList = this.state.soundFiles.map(item => {
         if (item.parentID !== 0) {
-          return <div className="tab"> <SoundFile fileHash={item.fileHash} parentHash={item.parentHash} fireContract={(e) => this.instantiateContract(e)}/> </div>
-        }else return <SoundFile fileHash={item.fileHash} parentHash={item.parentHash} fireContract={(e) => this.instantiateContract(e)}/>
+          return <div className="tab"> <SoundFile fileHash={item.fileHash} parentHash={item.parentHash} fireContract={(e,f) => this.instantiateContract(e,f)}/> </div>
+        }else return <SoundFile fileHash={item.fileHash} parentID={item.parentID} fireContract={(e,f) => this.instantiateContract(e,f)}/>
       })
     }
         // jsonSoundList.push({description:'helloagain_again',fileHash:'verylongfilehash'});
