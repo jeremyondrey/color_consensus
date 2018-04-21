@@ -23,7 +23,8 @@ class App extends Component {
       storageValue: "hello",
       listLength: null,
       web3: null,
-      soundFiles: []
+      soundFiles: [],
+      contractHashes: []
     }
 
   }
@@ -37,7 +38,7 @@ class App extends Component {
     {
       fileHash: "QmSnUCS7wRhkcJj97d8poXM9CvH45VGjUBnEUjLZW49BcH",
       fileID: 1,
-      parentID: 1
+      parentID: 0
     },
     {
       fileHash: "QmUhD25MRvghabeUxPxc7qBtzSnZvQn8DG2WgrbMkPRqRF",
@@ -47,7 +48,7 @@ class App extends Component {
     {
       fileHash: "Qmevt9AJLAJyBo8KtxiKJ8qGNNY57fJFJqVXkhPVXHZzPs",
       fileID: 3,
-      parentID: 0
+      parentID: 2
     }]
 
   })
@@ -76,16 +77,34 @@ class App extends Component {
     } else return "nep"
 }
 
+  nestComments(commentList) {
+    const commentMap = {};
+    // move all the comments into a map of id => comment
+    commentList.forEach(comment => commentMap[comment.fileID] = comment);
+    // iterate over the comments again and correctly nest the children
+    commentList.forEach(comment => {
+      if(comment.parentID !== 0) {
+        const parent = commentMap[comment.parentID];
+        // console.log(comment);
+
+        parent.children = comment;
+        //TODO
+        // parent.children = (parent.children || []).push(comment);
+
+      }
+    })
+    // filter the list to return a list of correctly nested comments
+    return commentList.filter(comment => {
+      return comment.parentID === 0;
+    })
+  }
+
   instantiateContract(e,f) {
+    //e: new file has from form
+    //f: id of parent
     console.log(this.testIfWav(e))
     console.log(e, "it works! ",f)
-    // e.preventDefault()
-    /*
-     * SMART CONTRACT EXAMPLE
-     *
-     * Normally these functions would be called in the context of a
-     * state management library, but for convenience I've placed them here.
-     */
+
 
     const contract = require('truffle-contract')
     const sampleStorage = contract(SampleStorageContract)
@@ -96,21 +115,14 @@ class App extends Component {
     var sampleStorageInstance
     // convert input string to hex value
     let sentData = this.state.web3.utils.toHex(e)
-    let parentID=4;
+    let parentID=f
     console.log(sentData);
     // Get accounts
     this.state.web3.eth.getAccounts((error, accounts) => {
       sampleStorage.deployed().then((instance) => {
         sampleStorageInstance = instance
-
         // calls createSample function on contract, mstores values in array
         return sampleStorageInstance.createSample(sentData, parentID, {from: accounts[0]})
-      }).then((result) => {
-        // Get the value from the contract to prove it worked.
-        return sampleStorageInstance.getSample.call(6, accounts[0])
-      }).then((result) => {
-        // Update state. result is an array, so return the value at index 0
-        return this.setState({ storageValue: result[0]})
       })
     })
   }
@@ -128,31 +140,41 @@ class App extends Component {
           return sampleStorageInstance.getSampleCount.call()
         }).then((result) => {
           // Update state
-          console.log(result.c[0])
           return this.setState({ listLength: result.c[0]})
         }).then( async(items) => {
           // loop through array stored in smart contract
           let array=[]
           for (let i = 0; i < this.state.listLength; i++) {
             const result = await sampleStorageInstance.getSample.call(i)
-            console.log(result[0]);
-            array.push(result[0])
-            console.log(array);
+            // convert hex to ascii and append to array
+            // console.log(result[1].c[0]);
+            array.push({
+              "fileHash": this.state.web3.utils.hexToAscii(result[0]),
+              "fileID": result[1].c[0],
+              "parentID": result[2].c[0]}
+            )
+            // console.log(array)
+            this.setState({contractHashes: array})
           }
         })
-
     }
 
   render() {
     //map through soundFiles array, store list in hashList var
+    let hashList2 = this.nestComments(this.state.soundFiles)
+    console.log(hashList2);
+
     let hashList
-    if (this.state.soundFiles) {
-      hashList = this.state.soundFiles.map(item => {
-        if (item.parentID !== 0) {
-          return <div className="tab"> <SoundFile fileHash={item.fileHash} parentHash={item.parentHash} fireContract={(e,f) => this.instantiateContract(e,f)}/> </div>
-        }else return <SoundFile fileHash={item.fileHash} parentID={item.parentID} fireContract={(e,f) => this.instantiateContract(e,f)}/>
+    if (this.state.contractHashes) {
+      hashList = this.state.contractHashes.map(item => {
+        if (item.parentID!==0) {
+          <div className="tab"><SoundFile fileHash={item.fileHash} fileID={item.fileID} parentID={item.parentID} fireContract={(e,f) => this.instantiateContract(e,f)}/></div>
+        }
+     return <SoundFile fileHash={item.fileHash} fileID={item.fileID} parentID={item.parentID} fireContract={(e,f) => this.instantiateContract(e,f)}/>
       })
     }
+
+
         // jsonSoundList.push({description:'helloagain_again',fileHash:'verylongfilehash'});
     return (
       <div className="App">
