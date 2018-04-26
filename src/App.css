@@ -9,9 +9,29 @@ h1, h2, h3 {
   font-family: 'Oswald', 'Arial Narrow', sans-serif;
 }
 
-.tab {
-  margin-left: 50px;
+.form {
+  align: 'right';
 }
+
+.colorgrid {
+  display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 10px;
+    background-color: #fff;
+    color: #444;
+}
+
+.box {
+  color: #fff;
+  border-radius: 2px;
+  padding: 10px;
+  font-size: 100%;
+}
+
+@media screen and (min-width: 476px) {
+.demo-1 {
+grid-template-columns: auto auto auto;}}
+
 
 code {
   display: block;
@@ -22,6 +42,8 @@ code {
 
 .sound-element{
   background-color: #ddffaa;
+  width: 10vw;
+  height: 10vw;
 }
 
 .container {

@@ -1,0 +1,26 @@
+<nav className="navbar pure-menu pure-menu-horizontal">
+    <a href="#" className="pure-menu-heading pure-menu-link">resample.space</a>
+</nav>
+<main className="container">
+  <div className="pure-g">
+    <div className="pure-u-1-1">
+
+    <h4> current number of elements: {this.state.listLength} </h4>
+    <h1>Blockchain based samplingcollaboration platform</h1>
+    <h2>category 1 - samples</h2>
+    <SubmitForm fireContract={(e,f,c) => this.instantiateContract(e,f,c)}/>
+    {category1}
+    <SubmitForm fireContract={(e,f,c) => this.instantiateContract(e,f,c)}/>
+    <h2>category 2 - loops</h2>
+    {category2}
+    <h2>category 3 - tracks</h2>
+    <SubmitForm fireContract={(e,f,c) => this.instantiateContract(e,f,c)}/>
+    {category3}
+    <p>listen to audio samples, remix and reply to sounds. <br />
+    this project is an experiment to see what happens when pseudonymous users can share and remix sounds stored on a permissionless database.<br />
+    keep in mind that all content shared here is public and immutable
+    </p>
+      <Footer currentTrack={"QmWYxbSBkBfN5BtkDT2HK722vyrprjMZutf5USdhsjcqg4"}/>
+    </div>
+  </div>
+</main>

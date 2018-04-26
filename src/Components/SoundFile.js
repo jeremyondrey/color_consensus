@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import ReactAudioPlayer from 'react-audio-player'
-import SubmitForm from './SubmitForm.js'
 
 class SoundFile extends Component {
   constructor(props) {
@@ -8,34 +7,17 @@ class SoundFile extends Component {
     this.state = {
       fileHash: this.props.fileHash,
       fileID: this.props.fileID,
-      parentID: this.props.parentID,
-      showResponder: false
+      category: this.props.category,
+      color: this.props.color
     }
-    // binds this keyword to app context
-    this.handleClick = this.handleClick.bind(this)
   }
-
-  //set response state to true
-  // toggles visibility of response form
-   handleClick(e) {
-     this.setState({ showResponder: !this.state.showResponder })
-   }
-
-   passValue(e){
-     //this works
-     console.log("tewst",e,this.state.fileID);
-     this.props.fireContract(e,this.props.fileID)
-   }
 
   render() {
     let url="https://ipfs.io/ipfs/" + this.props.fileHash
-    // toggles label of respond button
-    let respondButtonLabel=this.state.showResponder ? "close" : "respond"
+    let color="#" + this.props.color
     return (
-      <div className="sound-element">{this.props.fileHash}, fileID: {this.props.fileID}, parentID: {this.props.parentID} <br/>
-        <ReactAudioPlayer src={url} controls />
-        <button className="pure-button-active" onClick={this.handleClick}>{respondButtonLabel}</button>
-        {this.state.showResponder ? <SubmitForm passValue={(e) => this.passValue(e)}/> : null }
+      <div className="box" style={{backgroundColor: color}}>
+        <h3 className="child-title">fileID: {this.props.fileID}, color: {this.props.color}</h3>
       </div>
     );
   }
