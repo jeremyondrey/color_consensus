@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-// import ColorPicker from '../utils/jscolor.js'
+import ColorPicker from '../utils/jscolor.js'
 
 class SubmitForm extends Component {
   constructor(props) {
@@ -32,8 +32,9 @@ class SubmitForm extends Component {
   }
 
   render() {
+    let bgColor= "#" + this.state.color
     return (
-      <form onSubmit={this.handleSubmit} style={{backgroundColor: "#222222"}}>
+      <form onSubmit={this.handleSubmit} style={{backgroundColor: bgColor}}>
           <label>
 
             <input type="text" value={this.state.hash} onChange={this.hashUpdate} />
@@ -45,7 +46,7 @@ class SubmitForm extends Component {
           </select>
           <br/>
           <input className="jscolor {width:101, padding:0, shadow:false,
-    borderWidth:0, backgroundColor:'transparent', insetColor:'#000'}" value={this.state.color} onchange={this.colorUpdate} />
+    borderWidth:0, backgroundColor:'transparent', insetColor:'#000'}" value={this.state.color} onFineChange={this.colorUpdate} />
           <input type="submit" value="Submit"/>
         </form>
 

@@ -7,9 +7,15 @@ import SoundFile from './Components/SoundFile.js'
 import SubmitForm from './Components/SubmitForm.js'
 import Footer from './Components/Footer.js'
 
+//icons
+import FaPlay from 'react-icons/lib/fa/play';
+import FaPause from 'react-icons/lib/fa/pause';
+import FaDl from 'react-icons/lib/fa/download';
+
+
 import './css/oswald.css'
 import './css/open-sans.css'
-import './css/pure-min.css'
+// import './css/pure-min.css'
 import './App.css'
 
 class App extends Component {
@@ -17,12 +23,13 @@ class App extends Component {
     super(props)
 
     this.state = {
-      storageValue: "hello",
       listLength: null,
       web3: null,
       soundFiles: [],
       contractHashes: [],
-      showForm:false
+      showForm:false,
+      currentSound:'',
+      isPlaying:null
     }
     // this.handleClick = this.handleClick.bind(this)
   }
@@ -145,22 +152,20 @@ class App extends Component {
       })
   }
 
+  //TODO
   toggleForm() {
     const currentState = this.state.showForm
     this.setState({ showForm: !currentState })
   }
 
+  playSound(e){
+    this.setState({currentSound: e})
+    this.setState({isPlaying: true})
+  }
+
   render() {
-    // //map through soundFiles array, store list in hashList var
-    // console.log(this.state.contractHashes);
-    // let hashList
-    // if (this.state.contractHashes) {
-    //   hashList = this.state.contractHashes.map(item => {
-    //     // return <SoundFile fileHash={item.fileHash} fileID={item.fileID} parentID={item.parentID} fireContract={(e,f) => this.instantiateContract(e,f)}/>
-    //   })
-    // }
-    //
-    let allFiles=this.state.soundFiles.map(item => <SoundFile className="box" fileHash={item.fileHash} fileID={item.fileID} category={item.category} color={item.color} fireContract={(e,f,c) => this.instantiateContract(e,f,c)}/>)
+    let allFiles=this.state.soundFiles.reverse()
+    allFiles=allFiles.map(item => <SoundFile className="box" fileHash={item.fileHash} fileID={item.fileID} category={item.category} color={item.color} fireContract={(e,f,c) => this.instantiateContract(e,f,c)} playSound={(e) => this.playSound(e)}/>)
     // let category1=this.state.contractHashes.map(item => {
     //   if (item.category==1){
     //     return <SoundFile fileHash={item.fileHash} fileID={item.fileID} fireContract={(e,f,c) => this.instantiateContract(e,f,c)}/>
@@ -186,7 +191,10 @@ class App extends Component {
         {this.state.showForm ? <SubmitForm className="box" fireContract={(e,f,c) => this.instantiateContract(e,f,c)}/> : <button onClick={this.toggleForm()}>+</button>}
         {allFiles}
       </div>
-      <Footer />
+      <FaPlay />
+      <FaPause />
+      <FaDl />
+      <Footer currentSound={this.state.currentSound}/>
     </div>
     );
   }

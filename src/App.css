@@ -1,7 +1,6 @@
 /* PAGE */
 
-body,
-.pure-g [class*=pure-u] {
+body{
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -16,15 +15,15 @@ h1, h2, h3 {
 .colorgrid {
   display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 10px;
+    grid-gap: 0px;
     background-color: #fff;
     color: #444;
 }
 
 .box {
   color: #fff;
-  border-radius: 2px;
-  padding: 10px;
+  border-radius: 0px;
+  padding: 0px;
   font-size: 100%;
 }
 
@@ -69,7 +68,7 @@ code {
   left: 0;
   bottom: 0;
   width: 100%;
-  background: #0c1a2b;
+  background: #383F51;
   color: white;
   text-align: center;
 }
@@ -82,9 +81,12 @@ code {
   background: #0c1a2b;
   font-family: 'Oswald', 'Arial Narrow', sans-serif;
 }
+a {
+  color:#A1E8AF;
+}
 
-.navbar a {
-  color: #fff;
+.footer a {
+  color: #A1E8AF;
 }
 .sound-element{
   padding-top: 10px;
