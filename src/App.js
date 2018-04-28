@@ -26,6 +26,7 @@ class App extends Component {
       contractHashes: [],
       showForm:false,
       currentSound:'',
+      currentColor:'',
       isPlaying:null
     }
     // this.handleClick = this.handleClick.bind(this)
@@ -185,32 +186,23 @@ class App extends Component {
     } else return "nep"
 }
 
-
-  instantiateContract(e,f,c) {
+  instantiateContract(e,c) {
     //e: new file hash from form
-    //f: category
     //c: color
-    console.log(e, "it works! ",f)
-
 
     const contract = require('truffle-contract')
     const sampleStorage = contract(SampleStorageContract)
     sampleStorage.setProvider(this.state.web3.currentProvider)
     console.log("calling instantiatecontract");
-
     // Declaring this for later so we can chain functions on SampleStorage.
     var sampleStorageInstance
-    // convert input string to hex value
-    let sentData = this.state.web3.utils.toHex(e)
-    let category=f
-
-    console.log(sentData);
+    let hash=this.state.web3.utils.toHex(e)
     // Get accounts
     this.state.web3.eth.getAccounts((error, accounts) => {
       sampleStorage.deployed().then((instance) => {
         sampleStorageInstance = instance
-        // calls createSample function on contract, mstores values in array
-        return sampleStorageInstance.createSample(sentData, category, c, {from: accounts[0]})
+        // calls createSample function on smart contract
+        return sampleStorageInstance.createSample(hash, c, {from: accounts[0]})
       })
     })
   }
@@ -239,12 +231,8 @@ class App extends Component {
           array.push({
             "fileHash": this.state.web3.utils.hexToAscii(result[0]),
             "fileID": result[1].c[0],
-            "category": result[2].c[0],
-            "color": this.state.web3.utils.hexToAscii(result[3])}
-          )
+            "color": this.state.web3.utils.hexToAscii(result[2])})
           // console.log(array)
-          // let sortedArray=this.nestComments(array)
-          // console.log(sortedArray);
           this.setState({contractHashes: array})
         }
       })
@@ -256,9 +244,12 @@ class App extends Component {
     this.setState({ showForm: !currentState })
   }
 
-  playSound(e){
+  playSound(e,f){
+    //e: hash
+    //f: color
       this.setState({currentSound: e})
       this.setState({isPlaying: true})
+      this.setState({color: f})
   }
 
   urlExists(hash){
@@ -269,7 +260,7 @@ class App extends Component {
   }
 
   render() {
-    let allFiles=this.state.soundFiles.map(item => <SoundFile className="flex-item" fileHash={item.fileHash} fileID={item.fileID} category={item.category} color={item.color} fireContract={(e,f,c) => this.instantiateContract(e,f,c)} playSound={(e) => this.playSound(e)}/>)
+    let allFiles=this.state.soundFiles.map(item => <SoundFile className="flex-item" fileHash={item.fileHash} fileID={item.fileID} color={item.color} fireContract={(e,f,c) => this.instantiateContract(e,f,c)} playSound={(e,f) => this.playSound(e,f)}/>)
     let url="https://ipfs.io/ipfs/" + this.state.currentSound
     // let category1=this.state.contractHashes.map(item => {
     //   if (item.category==1){
@@ -289,25 +280,20 @@ class App extends Component {
     //
     return (
     <div className="App">
-      <div className="header">
-
-
-        <div class="left">
+      <div className="headergrid">
+        <span className="left">
           <b>color_consensus </b>
-          <a target="_blank" href="http://lums.io/color_consensus"><AboutIcon/></a>
-        </div>
-        <div class="right">
           <SubmitForm className="form" fireContract={(e,f,c) => this.instantiateContract(e,f,c)}/>
-        </div>
-
-
+        </span>
+        <span className="right">
+          <p>color_consensus aims to find a relationship between sound and color in a decentralized way. anyone can upload audio and match it with a color to participate. read more about it <a target="_blank" href="http://lums.io/color_consensus">here</a></p>
+        </span>
       </div>
-        <div className="flex-container" >
-          {allFiles}
-        </div>
-      <div className="footer">
-        <Footer currentSound={this.state.currentSound} autoPlay={this.state.isPlaying}/>
+
+      <div className="flex-container" >
+        {allFiles}
       </div>
+        <Footer currentSound={this.state.currentSound} currentColor={this.state.currentColor} autoPlay={this.state.isPlaying}/>
     </div>
     );
   }
