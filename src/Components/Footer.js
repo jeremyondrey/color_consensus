@@ -5,9 +5,6 @@ import ReactAudioPlayer from 'react-audio-player'
 import FaDl from 'react-icons/lib/fa/download';
 
 class Footer extends Component {
-  constructor(props) {
-    super(props)
-  }
   render() {
     let url="https://ipfs.io/ipfs/" + this.props.currentSound
     return (

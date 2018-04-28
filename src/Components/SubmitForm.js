@@ -5,7 +5,7 @@ class SubmitForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      hash: 'paste hash here',
+      hash: '',
       color:"FFFFFF"
     }
     this.hashUpdate = this.hashUpdate.bind(this);
@@ -32,7 +32,7 @@ class SubmitForm extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
           <label>
-            <input type="text" value={this.state.hash} onChange={this.hashUpdate} /> <br/>
+            <input type="text" value={this.state.hash} placeholder="paste IPFS hash" onChange={this.hashUpdate} />
             <input type="text" value={this.state.color} onChange={this.colorUpdate} maxLength="6" style={{backgroundColor: bgColor}}/>
           </label>
           <br/>

@@ -33,130 +33,104 @@ class App extends Component {
 
   componentWillMount() {
     this.setState({soundFiles: [{
-      fileHash: "Qmctyojt2Rc7PbKbi3CM9zpoHR91qhNpgj6Jkq2Zi6VdfG",
+      fileHash: "Qmeh3HjEy7UAP5teJgAQGV1dg4dSirL9e3CqhoheoAcWzZ",
       fileID: 0,
-      category: 1,
       color: '44dd21'
     },
     {
-      fileHash: "QmSnUCS7wRhkcJj97d8poXM9CvH45VGjUBnEUjLZW49BcH",
+      fileHash: "QmNstz28c3DwLLdCBf5FcpiiMT6VVJYbp9QQrXBaKHmqS5",
       fileID: 1,
-      category: 2,
-      color: '383f51'
+      color: 'FF2130'
     },
     {
-      fileHash: "QmUhD25MRvghabeUxPxc7qBtzSnZvQn8DG2WgrbMkPRqRF",
+      fileHash: "Qmbhsy22wk3GUjd3qhytaCCmAEasDK7petMmtwi2d39nYM",
       fileID: 2,
-      category: 3,
-      color: '991163'
+      color: '15f1ff'
     },
     {
-      fileHash: "QmUhD25MRvghabeUxPxc7qBtzSnZvQn8DG2WgrbMkPRqRF",
+      fileHash: "QmQuPivfg4vJ5iKVtB6StqZywseRUYARWanW6Rs3yPTkxo",
       fileID: 3,
-      category: 3,
       color: 'F381d3'
     },
     {
-      fileHash: "QmUhD25MRvghabeUxPxc7qBtzSnZvQn8DG2WgrbMkPRqRF",
+      fileHash: "QmVeLFK63Un6VGrLsABg5VQ2QsVySqZVi9xog7S9wrC3er",
       fileID: 4,
-      category: 3,
-      color: '18a4b2'
+      color: 'c51cd0'
     },
     {
-      fileHash: "QmUhD25MRvghabeUxPxc7qBtzSnZvQn8DG2WgrbMkPRqRF",
+      fileHash: "QmbsobVqoj2ijg3orycMAYYvjEiRkYpDAXdZZkqpNvjarz",
       fileID: 5,
-      category: 3,
-      color: 'dd1143'
+      color: '11a1df'
     },
     {
-      fileHash: "QmUhD25MRvghabeUxPxc7qBtzSnZvQn8DG2WgrbMkPRqRF",
+      fileHash: "Qmaqaopby8Bqujh36foFe2khUZt6SN6JC3vLkf99qM6fiA",
       fileID: 6,
-      category: 3,
-      color: '9fff63'
+      color: 'ff1131'
     },
     {
-      fileHash: "QmUhD25MRvghabeUxPxc7qBtzSnZvQn8DG2WgrbMkPRqRF",
+      fileHash: "QmTqgETbRMyAFxYDpamuwoRbyUB1PF7zvbCYkWx9HEuCBi",
       fileID: 7,
-      category: 3,
       color: 'ff44ff'
     },
     {
-      fileHash: "Qmevt9AJLAJyBo8KtxiKJ8qGNNY57fJFJqVXkhPVXHZzPs",
+      fileHash: "QmTQeR7H2miPP6sp5EuhgfhajfoLtPMgzWig8GBMGgzhZA",
       fileID: 8,
-      category: 2,
-      color: 'ddff14'
+      color: 'a1dda1'
     },
     {
-      fileHash: "Qmevt9AJLAJyBo8KtxiKJ8qGNNY57fJFJqVXkhPVXHZzPs",
+      fileHash: "QmXVtwVKQgcjAxM2eS46TVTPo9d1TKwGA23RwjifVh8Vrp",
       fileID: 9,
-      category: 2,
-      color: 'b6d014'
+      color: 'aaeafa'
     },
     {
-      fileHash: "Qmevt9AJLAJyBo8KtxiKJ8qGNNY57fJFJqVXkhPVXHZzPs",
+      fileHash: "QmXF99jf1NTzVBwUsjfnXtYxy9KEEncz6sS5dVowRs3deM",
       fileID: 10,
-      category: 2,
-      color: 'ddff14'
+      color: 'aa3333'
     },
     {
-      fileHash: "QmSnUCS7wRhkcJj97d8poXM9CvH45VGjUBnEUjLZW49BcH",
+      fileHash: "QmcmWwc27xHvJ41K8cyZK4WUFAdzwE9RwQXqbY5QNy9rkt",
       fileID: 11,
-      category: 2,
-      color: '383f51'
+      color: 'e1afd1'
     },
     {
-      fileHash: "QmUhD25MRvghabeUxPxc7qBtzSnZvQn8DG2WgrbMkPRqRF",
+      fileHash: "QmZdCR79s335zAjS7kBGZG35FNms3EzA1HMxRbVxMNNASi",
       fileID: 12,
-      category: 3,
       color: '991163'
     },
     {
-      fileHash: "QmUhD25MRvghabeUxPxc7qBtzSnZvQn8DG2WgrbMkPRqRF",
+      fileHash: "QmXFsb8yyYPaEvZNT9nrKHdxNU6XTCt4dG89otGhr91Fb8",
       fileID: 13,
-      category: 3,
-      color: 'F381d3'
+      color: 'FF2150'
     },
     {
-      fileHash: "QmUhD25MRvghabeUxPxc7qBtzSnZvQn8DG2WgrbMkPRqRF",
+      fileHash: "QmcBFmitKuezSMp6PrKm2LpvUdduZfDLcN8VntavCaZotc",
       fileID: 14,
-      category: 3,
-      color: '18a4b2'
+      color: 'FF5150'
     },
     {
-      fileHash: "QmUhD25MRvghabeUxPxc7qBtzSnZvQn8DG2WgrbMkPRqRF",
+      fileHash: "QmdzHsPAyfWPDLYvhq3uPGurL1vdCi8JotfzwxAS2jMLDm",
       fileID: 15,
-      category: 3,
-      color: 'dd1143'
+      color: 'FF41a0'
     },
     {
-      fileHash: "QmUhD25MRvghabeUxPxc7qBtzSnZvQn8DG2WgrbMkPRqRF",
+      fileHash: "QmZ6EMc9bUNAXQzbcwM6yjqEyq36cynLDj44haRCDdqSpm",
       fileID: 16,
-      category: 3,
       color: '9fff63'
     },
     {
-      fileHash: "QmUhD25MRvghabeUxPxc7qBtzSnZvQn8DG2WgrbMkPRqRF",
+      fileHash: "QmbLX4pCDz4DNeMwC47Wd1vhnjuUi9YqZRDD28FZk49iJd",
       fileID: 17,
-      category: 3,
-      color: 'ff44ff'
+      color: 'bbeebb'
     },
     {
-      fileHash: "Qmevt9AJLAJyBo8KtxiKJ8qGNNY57fJFJqVXkhPVXHZzPs",
+      fileHash: "QmQT5c3toLfJZ8pAor6MekuBhphW7bHCxX9dvhyqrbqUM5",
       fileID: 18,
-      category: 2,
-      color: 'ddff14'
+      color: 'ff7766'
     },
     {
-      fileHash: "Qmevt9AJLAJyBo8KtxiKJ8qGNNY57fJFJqVXkhPVXHZzPs",
+      fileHash: "QmNg7Xxkk1Ux8z13s9A8byt5A4LUq2vxndia4nU8yCkV78",
       fileID: 19,
-      category: 2,
-      color: 'b6d014'
-    },
-    {
-      fileHash: "Qmevt9AJLAJyBo8KtxiKJ8qGNNY57fJFJqVXkhPVXHZzPs",
-      fileID: 20,
-      category: 2,
-      color: 'ddff14'
+      color: 'ff9786'
     }]
 
   })

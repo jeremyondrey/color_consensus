@@ -13,3 +13,5 @@ TODO
 - [x] smart contract communication
 - [] demo samples
 - [] save sample as color hex value
+- [] test raspi deployment
+- [] rinkeby deployment
