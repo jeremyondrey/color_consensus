@@ -6,7 +6,6 @@ import getWeb3 from './utils/getWeb3'
 import SoundFile from './Components/SoundFile.js'
 import SubmitForm from './Components/SubmitForm.js'
 import Footer from './Components/Footer.js'
-import ReactAudioPlayer from 'react-audio-player'
 
 import AboutIcon from 'react-icons/lib/fa/info-circle'
 
