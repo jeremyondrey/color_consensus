@@ -45,35 +45,9 @@ h1, h2, h3 {
 
 .box {
   color: #fff;
-  border-radius: 0px;
-  font-size: 100%;
   text-align: center;
-  vertical-align: middle;
-  height: 10vw;
-  width: 10vw;
-  line-height: 10vw;
+  vertical-align: center;
 }
-
-.flex-container {
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: row;
-    -ms-flex-direction: row;
-    flex-direction: row;
-    -webkit-flex-wrap: wrap;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    -webkit-justify-content: flex-start;
-    -ms-flex-pack: start;
-    justify-content: flex-start;
-    -webkit-align-content: flex-start;
-    -ms-flex-line-pack: start;
-    align-content: flex-start;
-    -webkit-align-items: flex-start;
-    -ms-flex-align: start;
-    align-items: flex-start;
-    }
 
 .flex-item {
     -webkit-flex: 0 1 auto;
@@ -83,6 +57,33 @@ h1, h2, h3 {
     -ms-flex-item-align: auto;
     align-self: auto;
     }
+
+.flex-container {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  
+  -webkit-flex-flow: row wrap;
+  justify-content: left;
+}
+
+.flex-item {
+  width: 150px;
+  height: 150px;
+  margin: 5px;
+  
+  line-height: 150px;
+  color: white;
+  font-weight: bold;
+  font-size: 3em;
+  text-align: center;
+}
 
   a {
     color:#A1E8AF;
