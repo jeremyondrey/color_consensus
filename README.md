@@ -12,6 +12,8 @@ TODO
 - [x] basic layout
 - [x] smart contract communication
 - [] demo samples
+- [] nice color picker
 - [] save sample as color hex value
 - [] test raspi deployment
 - [] rinkeby deployment
+- [] documentation

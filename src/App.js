@@ -25,7 +25,7 @@ class App extends Component {
       contractHashes: [],
       showForm:false,
       currentSound:'',
-      currentColor:'',
+      currentColor:'383f51',
       isPlaying:null
     }
     // this.handleClick = this.handleClick.bind(this)
@@ -222,19 +222,20 @@ class App extends Component {
     //f: color
       this.setState({currentSound: e})
       this.setState({isPlaying: true})
-      this.setState({color: f})
+      this.setState({currentColor: f})
   }
 
   urlExists(hash){
     var http = new XMLHttpRequest();
     http.open('HEAD', "https://ipfs.io/ipfs/" + hash, false);
     http.send();
-    return http.status!=404;
+    return http.status!==404;
   }
 
   render() {
     let allFiles=this.state.soundFiles.map(item => <SoundFile className="flex-item" fileHash={item.fileHash} fileID={item.fileID} color={item.color} fireContract={(e,f,c) => this.instantiateContract(e,f,c)} playSound={(e,f) => this.playSound(e,f)}/>)
-    let url="https://ipfs.io/ipfs/" + this.state.currentSound
+    // let url="https://ipfs.io/ipfs/" + this.state.currentSound
+    let bgColor= "#" + this.state.currentColor
     // let category1=this.state.contractHashes.map(item => {
     //   if (item.category==1){
     //     return <SoundFile fileHash={item.fileHash} fileID={item.fileID} fireContract={(e,f,c) => this.instantiateContract(e,f,c)}/>
@@ -263,7 +264,7 @@ class App extends Component {
         </span>
       </div>
 
-      <div className="flex-container" >
+      <div className="flex-container" style={{backgroundColor: bgColor}} >
         {allFiles}
       </div>
         <Footer currentSound={this.state.currentSound} currentColor={this.state.currentColor} autoPlay={this.state.isPlaying}/>
