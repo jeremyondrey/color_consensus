@@ -19,9 +19,9 @@ class SubmitForm extends Component {
     this.setState({hash: event.target.value});
   }
   categoryUpdate(event){
-    if (event=="Sound")this.setState({category: 1})
-    if (event=="Loop")this.setState({category: 2})
-    if (event=="Track")this.setState({category: 3})
+    // if (event=="Sound")this.setState({category: 1})
+    // if (event=="Loop")this.setState({category: 2})
+    // if (event=="Track")this.setState({category: 3})
   }
   colorUpdate(event){
     console.log(event)
@@ -39,7 +39,7 @@ class SubmitForm extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
           <label>
-            <input type="text" value={this.state.hash} onChange={this.hashUpdate} />
+            <input type="text" value={this.state.hash} onChange={this.hashUpdate} /> <br/>
             <input type="text" value={this.state.color} onChange={this.colorUpdate} maxLength="6" style={{backgroundColor: bgColor}}/>
           </label>
           <select value={this.state.category} onChange={this.categoryUpdate}>

@@ -8,6 +8,8 @@ import SubmitForm from './Components/SubmitForm.js'
 import Footer from './Components/Footer.js'
 import ReactAudioPlayer from 'react-audio-player'
 
+import AboutIcon from 'react-icons/lib/fa/info-circle'
+
 import './css/oswald.css'
 import './css/open-sans.css'
 // import './css/pure-min.css'
@@ -292,7 +294,7 @@ class App extends Component {
 
         <div class="left">
           <b>color_consensus </b>
-          <a target="_blank" href="http://lums.io/color_consensus">about</a>
+          <a target="_blank" href="http://lums.io/color_consensus"><AboutIcon/></a>
         </div>
         <div class="right">
           <SubmitForm className="form" fireContract={(e,f,c) => this.instantiateContract(e,f,c)}/>
