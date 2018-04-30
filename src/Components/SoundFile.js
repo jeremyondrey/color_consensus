@@ -26,13 +26,22 @@ class SoundFile extends Component {
     this.props.playSound(this.state.fileHash,this.state.color)
   }
 
+  urlExists(hash){
+    var http = new XMLHttpRequest();
+    http.open('HEAD', "https://ipfs.io/ipfs/" + hash, false);
+    http.send();
+    return http.status!==404;
+  }
+
   render() {
     let color="#" + this.state.color
     return (
       <div className="flex-item" style={{backgroundColor: color}}>
+        {if (this.urlExists(this.state.fileHash)) {  
         <button className="button" onClick={this.handleClick.bind(this)}>
           <FaPlay />
         </button>
+      }}
       </div>
     );
   }

@@ -192,8 +192,7 @@ class App extends Component {
       }).then( async(items) => {
         // loop through array stored in smart contract
         let array=[]
-        //first file had a broken color value on rinkeby contract
-        for (let i = 1; i < this.state.listLength-1; i++) {
+        for (let i = 0; i < this.state.listLength; i++) {
           const result = await sampleStorageInstance.getSample.call(i)
           // convert hex to ascii and append to array
           console.log(result);
@@ -221,16 +220,24 @@ class App extends Component {
       this.setState({currentColor: f})
   }
 
-
-  urlExists(hash){
-    var http = new XMLHttpRequest();
-    http.open('HEAD', "https://ipfs.io/ipfs/" + hash, false);
-    http.send();
-    return http.status!==404;
-  }
+  //check if str is a color
+  is_hexadecimal(str){
+    let regexp = /^[0-9a-fA-F]+$/
+    if (regexp.test(str)){
+      return true
+      }
+      else {
+      return false;
+      }
+}
 
   render() {
-    let allFiles=this.state.contractHashes.map(item => <SoundFile key={item.fileID} fileHash={item.fileHash} fileID={item.fileID} color={item.color} fireContract={(e,f,c) => this.instantiateContract(e,f,c)} playSound={(e,f) => this.playSound(e,f)}/>)
+    let allFiles=this.state.contractHashes.map(item => {
+      if (this.is_hexadecimal(item.color)==true){
+      return <SoundFile key={item.fileID} fileHash={item.fileHash} fileID={item.fileID} color={item.color} fireContract={(e,f,c) => this.instantiateContract(e,f,c)} playSound={(e,f) => this.playSound(e,f)}/>
+      }
+  })
+
     // let url="https://ipfs.io/ipfs/" + this.state.currentSound
     let bgColor= "#" + this.state.currentColor
     // let category1=this.state.contractHashes.map(item => {
