@@ -8,6 +8,7 @@ contract SampleStorage {
         bytes6 color;
         address uploader;
     }
+
     //create array of structs
     Sample[] private samples;
 

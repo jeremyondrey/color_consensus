@@ -34,28 +34,23 @@ class App extends Component {
   componentWillMount() {
     this.setState({soundFiles: [{
       fileHash: "Qmeh3HjEy7UAP5teJgAQGV1dg4dSirL9e3CqhoheoAcWzZ",
-      fileID: 0,
-      color: '44dd21'
+      fileID: 1,
+      color: '222222'
     },
     {
       fileHash: "QmNstz28c3DwLLdCBf5FcpiiMT6VVJYbp9QQrXBaKHmqS5",
-      fileID: 1,
+      fileID: 2,
       color: 'FF2130'
     },
     {
       fileHash: "Qmbhsy22wk3GUjd3qhytaCCmAEasDK7petMmtwi2d39nYM",
-      fileID: 2,
-      color: '15f1ff'
-    },
-    {
-      fileHash: "QmQuPivfg4vJ5iKVtB6StqZywseRUYARWanW6Rs3yPTkxo",
       fileID: 3,
-      color: 'F381d3'
+      color: '15f1ff'
     },
     {
       fileHash: "QmVeLFK63Un6VGrLsABg5VQ2QsVySqZVi9xog7S9wrC3er",
       fileID: 4,
-      color: 'c51cd0'
+      color: '4C334E'
     },
     {
       fileHash: "QmbsobVqoj2ijg3orycMAYYvjEiRkYpDAXdZZkqpNvjarz",
@@ -80,7 +75,7 @@ class App extends Component {
     {
       fileHash: "QmXVtwVKQgcjAxM2eS46TVTPo9d1TKwGA23RwjifVh8Vrp",
       fileID: 9,
-      color: 'aaeafa'
+      color: 'dafa8a'
     },
     {
       fileHash: "QmXF99jf1NTzVBwUsjfnXtYxy9KEEncz6sS5dVowRs3deM",
@@ -100,12 +95,12 @@ class App extends Component {
     {
       fileHash: "QmXFsb8yyYPaEvZNT9nrKHdxNU6XTCt4dG89otGhr91Fb8",
       fileID: 13,
-      color: 'FF2150'
+      color: 'BF1230'
     },
     {
       fileHash: "QmcBFmitKuezSMp6PrKm2LpvUdduZfDLcN8VntavCaZotc",
       fileID: 14,
-      color: 'FF5150'
+      color: 'B32C2B'
     },
     {
       fileHash: "QmdzHsPAyfWPDLYvhq3uPGurL1vdCi8JotfzwxAS2jMLDm",
@@ -115,7 +110,7 @@ class App extends Component {
     {
       fileHash: "QmZ6EMc9bUNAXQzbcwM6yjqEyq36cynLDj44haRCDdqSpm",
       fileID: 16,
-      color: '9fff63'
+      color: '115f43'
     },
     {
       fileHash: "QmbLX4pCDz4DNeMwC47Wd1vhnjuUi9YqZRDD28FZk49iJd",
@@ -125,12 +120,12 @@ class App extends Component {
     {
       fileHash: "QmQT5c3toLfJZ8pAor6MekuBhphW7bHCxX9dvhyqrbqUM5",
       fileID: 18,
-      color: 'ff7766'
+      color: '410F0F'
     },
     {
       fileHash: "QmNg7Xxkk1Ux8z13s9A8byt5A4LUq2vxndia4nU8yCkV78",
       fileID: 19,
-      color: 'ff9786'
+      color: '7B1919'
     }]
 
   })
@@ -161,7 +156,7 @@ class App extends Component {
 
   instantiateContract(e,c) {
     //e: new file hash from form
-    //c: color
+    //c: new color
 
     const contract = require('truffle-contract')
     const sampleStorage = contract(SampleStorageContract)
@@ -169,13 +164,13 @@ class App extends Component {
     console.log("calling instantiatecontract");
     // Declaring this for later so we can chain functions on SampleStorage.
     var sampleStorageInstance
-    let hash=this.state.web3.utils.toHex(e)
+    let color = this.state.web3.utils.toHex(c)
     // Get accounts
     this.state.web3.eth.getAccounts((error, accounts) => {
       sampleStorage.deployed().then((instance) => {
         sampleStorageInstance = instance
         // calls createSample function on smart contract
-        return sampleStorageInstance.createSample(hash, c, {from: accounts[0]})
+        return sampleStorageInstance.createSample(this.state.web3.utils.toHex(e), color, {from: accounts[0]})
       })
     })
   }
@@ -197,7 +192,8 @@ class App extends Component {
       }).then( async(items) => {
         // loop through array stored in smart contract
         let array=[]
-        for (let i = 0; i < this.state.listLength; i++) {
+        //first file had a broken color value on rinkeby contract
+        for (let i = 1; i < this.state.listLength-1; i++) {
           const result = await sampleStorageInstance.getSample.call(i)
           // convert hex to ascii and append to array
           console.log(result);
@@ -225,6 +221,7 @@ class App extends Component {
       this.setState({currentColor: f})
   }
 
+
   urlExists(hash){
     var http = new XMLHttpRequest();
     http.open('HEAD', "https://ipfs.io/ipfs/" + hash, false);
@@ -233,7 +230,7 @@ class App extends Component {
   }
 
   render() {
-    let allFiles=this.state.soundFiles.map(item => <SoundFile className="flex-item" fileHash={item.fileHash} fileID={item.fileID} color={item.color} fireContract={(e,f,c) => this.instantiateContract(e,f,c)} playSound={(e,f) => this.playSound(e,f)}/>)
+    let allFiles=this.state.contractHashes.map(item => <SoundFile key={item.fileID} fileHash={item.fileHash} fileID={item.fileID} color={item.color} fireContract={(e,f,c) => this.instantiateContract(e,f,c)} playSound={(e,f) => this.playSound(e,f)}/>)
     // let url="https://ipfs.io/ipfs/" + this.state.currentSound
     let bgColor= "#" + this.state.currentColor
     // let category1=this.state.contractHashes.map(item => {
@@ -254,16 +251,7 @@ class App extends Component {
     //
     return (
     <div className="App">
-      <div className="headergrid">
-        <span className="left">
-          <b>color_consensus </b>
-          <SubmitForm className="form" fireContract={(e,f,c) => this.instantiateContract(e,f,c)}/>
-        </span>
-        <span className="right">
-          <p>color_consensus aims to find a relationship between sound and color in a decentralized way. anyone can upload audio and match it with a color to participate. read more about it <a target="_blank" href="http://lums.io/color_consensus">here</a></p>
-        </span>
-      </div>
-
+        <SubmitForm className="form" fireContract={(e,f,c) => this.instantiateContract(e,f,c)}/>
       <div className="flex-container" style={{backgroundColor: bgColor}} >
         {allFiles}
       </div>

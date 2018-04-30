@@ -10,7 +10,7 @@ class Footer extends Component {
     return (
       <div className="footer">
       <ReactAudioPlayer src={url} controls autoPlay={this.props.autoPlay}/>
-      {this.props.currentSound ? <a href={url} download={this.props.currentColor}><FaDl/></a> : null}
+      {this.props.currentSound ? <a href={url} ><FaDl className="dlbtn"/></a> : null}
     </div>
     )
   }

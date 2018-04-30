@@ -9,8 +9,13 @@ h1, h2, h3 {
   font-family: 'Oswald', 'Arial Narrow', sans-serif;
 }
 
+mark {
+    background-color: #383F51;
+    color: #FFF;
+}
+
 .form {
-  align: 'right';
+  align: 'left';
 }
 
 .header {
@@ -43,51 +48,35 @@ h1, h2, h3 {
     color: #FFF;
 }
 
-.box {
-  color: #fff;
-  text-align: center;
-  vertical-align: center;
-}
-
-.flex-item {
-    -webkit-flex: 0 1 auto;
-    -ms-flex: 0 1 auto;
-    flex: 0 1 auto;
-    -webkit-align-self: auto;
-    -ms-flex-item-align: auto;
-    align-self: auto;
-    }
-
 .flex-container {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  
+
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-  
+
   -webkit-flex-flow: row wrap;
   justify-content: left;
 }
 
 .flex-item {
-  width: 150px;
-  height: 150px;
   margin: 5px;
-  
-  line-height: 150px;
   color: white;
-  font-weight: bold;
-  font-size: 3em;
   text-align: center;
+  vertical-align: center;
+  height: 10vw;
+  width: 10vw;
+  line-height: 10vw;
 }
 
   a {
     color:#A1E8AF;
     text-decoration: none;
+  }
+
+  .dlbtn{
+    margin: 10px;
   }
 
 @media screen and (min-width: 476px) {
@@ -112,11 +101,6 @@ code {
   width: 100%;
   padding: 45px 20px;
 }
-
-.button{
-
-}
-
 
 .pure-form input[type="text"]:focus {
   border-color: #0c1a2b;
