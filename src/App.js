@@ -7,8 +7,6 @@ import SoundFile from './Components/SoundFile.js'
 import SubmitForm from './Components/SubmitForm.js'
 import Footer from './Components/Footer.js'
 
-import AboutIcon from 'react-icons/lib/fa/info-circle'
-
 import './css/oswald.css'
 import './css/open-sans.css'
 // import './css/pure-min.css'
@@ -161,7 +159,7 @@ class App extends Component {
     const contract = require('truffle-contract')
     const sampleStorage = contract(SampleStorageContract)
     sampleStorage.setProvider(this.state.web3.currentProvider)
-    console.log("calling instantiatecontract");
+    // console.log("calling instantiatecontract");
     // Declaring this for later so we can chain functions on SampleStorage.
     var sampleStorageInstance
     let color = this.state.web3.utils.toHex(c)
@@ -195,7 +193,6 @@ class App extends Component {
         for (let i = 0; i < this.state.listLength; i++) {
           const result = await sampleStorageInstance.getSample.call(i)
           // convert hex to ascii and append to array
-          console.log(result);
           array.push({
             "fileHash": this.state.web3.utils.hexToAscii(result[0]),
             "fileID": result[1].c[0],

@@ -36,12 +36,7 @@ class SoundFile extends Component {
   render() {
     let color="#" + this.state.color
     return (
-      <div className="flex-item" style={{backgroundColor: color}}>
-        {if (this.urlExists(this.state.fileHash)) {  
-        <button className="button" onClick={this.handleClick.bind(this)}>
-          <FaPlay />
-        </button>
-      }}
+      <div className="flex-item" style={{backgroundColor: color}} onClick={this.handleClick.bind(this)}>
       </div>
     );
   }
