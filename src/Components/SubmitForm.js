@@ -33,9 +33,13 @@ class SubmitForm extends Component {
   };
 
   handleSubmit(event) {
-    alert(this.state.hash + ' ' + this.state.color + ' Confirm that this is correct, then open Metamask and sign the transaction. Note that inputting anything other than a hash linking to a sound file will not show up.');
     event.preventDefault();
-    this.props.fireContract(this.state.hash, this.state.color)
+    if (this.state.hash!=='' && this.state.hash.startsWith('Qm')) {
+    alert('hash: ' + this.state.hash + '\ncolor value: #' + this.state.color + '\nMake sure this is correct, then open Metamask and sign the transaction. It may take a while for the transaction to confirm on the network.');
+      this.props.fireContract(this.state.hash, this.state.color)
+    } else {
+
+    }
   }
 
   render() {

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
 //icons
-import FaPlay from 'react-icons/lib/fa/play'
-import FaPause from 'react-icons/lib/fa/pause'
+//import FaPlay from 'react-icons/lib/fa/play'
+//import FaPause from 'react-icons/lib/fa/pause'
 
 class SoundFile extends Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class SoundFile extends Component {
   }
 
   handleClick(e) {
-    console.log("playing " + this.state.fileHash);
+    console.log("playing " + this.state.fileHash)
     // e.preventDefault();
     this.props.playSound(this.state.fileHash,this.state.color)
   }
