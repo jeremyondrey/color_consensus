@@ -11,9 +11,9 @@ If you want to participate, keep a few things in mind:
 TODO
 - [x] basic layout
 - [x] smart contract communication
-- [] demo samples
-- [] nice color picker
+- [x] demo samples
+- [x] nice color picker
 - [] save sample as color hex value
-- [] test raspi deployment
-- [] rinkeby deployment
+- [x] test raspi deployment
+- [x] rinkeby deployment
 - [] documentation
