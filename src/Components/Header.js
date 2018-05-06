@@ -35,8 +35,9 @@ class SubmitForm extends Component {
   handleSubmit(event) {
     event.preventDefault();
     if (this.state.hash!=='' && this.state.hash.startsWith('Qm')) {
-    alert("All hashes and colors are stored in an immutable blockchain. You are responsible for the content you upload. \nOpen Metamask to confirm. It may take a while for the transaction to appear on the network.");
+    alert("All hashes and colors are stored in an immutable public blockchain. You are responsible for the content you upload. \nOpen Metamask to confirm. It may take a while for the transaction to appear on the network.");
       this.props.fireContract(this.state.hash, this.state.color)
+      this.setState({ color: '383F51'})
     } else {
 
     }
