@@ -35,7 +35,7 @@ class SubmitForm extends Component {
   handleSubmit(event) {
     event.preventDefault();
     if (this.state.hash!=='' && this.state.hash.startsWith('Qm')) {
-    alert('hash: ' + this.state.hash + '\ncolor value: #' + this.state.color + '\nMake sure this is correct, then open Metamask and sign the transaction. It may take a while for the transaction to confirm on the network.');
+    alert("All hashes and colors are stored in an immutable blockchain. You are responsible for the content you upload. \nOpen Metamask to confirm. It may take a while for the transaction to appear on the network.");
       this.props.fireContract(this.state.hash, this.state.color)
     } else {
 
@@ -73,7 +73,7 @@ class SubmitForm extends Component {
         </form>
       </span>
       <span className="right">
-        <p><mark>color_consensus aims to find a relationship between sound and color in a decentralized way. anyone can upload audio and match it with a color to participate. read more about it <a target="_blank" href="http://lums.io/color_consensus">here</a></mark></p>
+        <p><mark>color_consensus aims to find a relationship between sound and color in a decentralized way. all sounds are stored on an immutable blockchain. <h3><a target="_blank" href="http://lums.io/color_consensus">how it works</a></h3></mark></p>
       </span>
     </div>
     );

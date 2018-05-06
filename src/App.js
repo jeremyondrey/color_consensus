@@ -4,7 +4,7 @@ import getWeb3 from './utils/getWeb3'
 
 //components
 import SoundFile from './Components/SoundFile.js'
-import SubmitForm from './Components/SubmitForm.js'
+import Header from './Components/Header.js'
 import Footer from './Components/Footer.js'
 
 import './css/oswald.css'
@@ -149,7 +149,7 @@ class App extends Component {
     <div className="App">
     {this.state.isRinkeby?
       <div>
-        <SubmitForm className="form" fireContract={(e,f,c) => this.instantiateContract(e,f,c)}/>
+        <Header className="form" fireContract={(e,f,c) => this.instantiateContract(e,f,c)}/>
         <div className="flex-container" style={{backgroundColor: bgColor}} >
           {allFiles}
         </div>
