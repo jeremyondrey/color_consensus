@@ -44,7 +44,7 @@ class App extends Component {
 
       this.state.web3.eth.net.getNetworkType()
       .then(network => {
-        if (network=='rinkeby') {
+        if (network==='rinkeby') {
           this.setState({isRinkeby:true})
         }
       })
@@ -93,7 +93,7 @@ class App extends Component {
       sampleStorage.deployed().then((instance) => {
         sampleStorageInstance = instance
         // gets sample array length
-        return sampleStorageInstance.getSampleCount.call()
+        return sampleStorageInstance.getSampleCount()
       }).then((result) => {
         // Update state
         return this.setState({ listLength: result.c[0]})
@@ -101,12 +101,13 @@ class App extends Component {
         // loop through array stored in smart contract
         let array=[]
         for (let i = 0; i < this.state.listLength; i++) {
-          const result = await sampleStorageInstance.getSample.call(i)
+          const result = await sampleStorageInstance.getSample(i)
           // convert hex to ascii and append to array
           array.push({
             "fileHash": this.state.web3.utils.hexToAscii(result[0]),
             "fileID": result[1].c[0],
-            "color": this.state.web3.utils.hexToAscii(result[2])})
+            "color": this.state.web3.utils.hexToAscii(result[2]),
+            "uploader": this.state.web3.utils.hexToAscii(result[3])})
           // console.log(array)
           this.setState({contractHashes: array})
         }
@@ -141,7 +142,7 @@ class App extends Component {
   render() {
     let allFiles=this.state.contractHashes.map(item => {
       if (this.is_hexadecimal(item.color)===true){
-      return <SoundFile key={item.fileID} fileHash={item.fileHash} fileID={item.fileID} color={item.color} fireContract={(e,f,c) => this.instantiateContract(e,f,c)} playSound={(e,f) => this.playSound(e,f)}/>
+      return <SoundFile key={item.fileID} fileHash={item.fileHash} fileID={item.fileID} color={item.color} uploader={item.uploader} fireContract={(e,f,c) => this.instantiateContract(e,f,c)} playSound={(e,f) => this.playSound(e,f)}/>
       }
   })
     let bgColor= "#" + this.state.currentColor

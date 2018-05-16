@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { ChromePicker } from 'react-color';
 
-class SubmitForm extends Component {
+class Header extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -35,11 +35,8 @@ class SubmitForm extends Component {
   handleSubmit(event) {
     event.preventDefault();
     if (this.state.hash!=='' && this.state.hash.startsWith('Qm')) {
-    alert("All hashes and colors are stored in an immutable public blockchain. You are responsible for the content you upload. \nOpen Metamask to confirm. It may take a while for the transaction to appear on the network.");
-      this.props.fireContract(this.state.hash, this.state.color)
-      this.setState({ color: '383F51'})
-    } else {
-
+    let response = confirm("All hashes and colors are stored in an immutable blockchain. You are responsible for the content you upload. \nOpen Metamask to confirm. It may take a while for the transaction to appear on the network.");
+    if (response==true){this.props.fireContract(this.state.hash, this.state.color)}
     }
   }
 
@@ -74,11 +71,11 @@ class SubmitForm extends Component {
         </form>
       </span>
       <span className="right">
-        <p><mark>color_consensus aims to find a relationship between sound and color in a decentralized way. all sounds are stored on an immutable blockchain. <h3><a target="_blank" href="http://lums.io/color_consensus">how it works</a></h3></mark></p>
+        <mark>color_consensus aims to find a relationship between sound and color in a decentralized way. all sounds are stored on an immutable blockchain. <h3><a target="_blank" href="http://lums.io/color_consensus">how it works</a></h3></mark>
       </span>
     </div>
     );
   }
 }
 
-export default SubmitForm
+export default Header

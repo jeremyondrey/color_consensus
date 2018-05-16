@@ -8,7 +8,6 @@ contract SampleStorage {
         bytes6 color;
         address uploader;
     }
-
     //create array of structs
     Sample[] private samples;
 
@@ -17,13 +16,12 @@ contract SampleStorage {
         soundID=soundID+1;
     }
 
-    function getSample(uint i) public view returns (bytes, uint, bytes6){
+    function getSample(uint i) public view returns (bytes, uint, bytes6, address){
         //return properties of struct
-        return (samples[i].fileHash, samples[i].hashID, samples[i].color);
+        return (samples[i].fileHash, samples[i].hashID, samples[i].color, samples[i].uploader);
     }
 
     function getSampleCount() public view returns(uint count) {
         return samples.length;
     }
-
 }
