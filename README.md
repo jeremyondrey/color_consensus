@@ -17,3 +17,4 @@ TODO
 - [x] test raspi deployment
 - [x] rinkeby deployment
 - [] documentation
+- [] sort by artist/color

@@ -87,7 +87,7 @@ class App extends Component {
     // e.preventDefault()
     const contract = require('truffle-contract')
     const sampleStorage = contract(SampleStorageContract)
-    sampleStorage.setProvider(this.state.web3.currentProvider)
+sampleStorage.setProvider(this.state.web3.currentProvider)
     // Declaring this for later so we can chain functions on SampleStorage.
     var sampleStorageInstance
       sampleStorage.deployed().then((instance) => {
@@ -107,12 +107,18 @@ class App extends Component {
             "fileHash": this.state.web3.utils.hexToAscii(result[0]),
             "fileID": result[1].c[0],
             "color": this.state.web3.utils.hexToAscii(result[2]),
+<<<<<<< HEAD
             "uploader": this.state.web3.utils.hexToAscii(result[3])})
+=======
+            “uploader”: result[3]})
+>>>>>>> 93fbb17e574b5b7c0af5f8fd47bc3a07f5495d15
           // console.log(array)
           this.setState({contractHashes: array})
         }
       })
-  }
+}
+
+
 
   //TODO
   toggleForm() {
@@ -145,6 +151,13 @@ class App extends Component {
       return <SoundFile key={item.fileID} fileHash={item.fileHash} fileID={item.fileID} color={item.color} uploader={item.uploader} fireContract={(e,f,c) => this.instantiateContract(e,f,c)} playSound={(e,f) => this.playSound(e,f)}/>
       }
   })
+
+let userFiles=this.state.contractHashes.map(item => {
+      if (web3.eth.accounts[0]===item.uploader){
+      return <SoundFile key={item.fileID} fileHash={item.fileHash} fileID={item.fileID} color={item.color} fireContract={(e,f,c) => this.instantiateContract(e,f,c)} playSound={(e,f) => this.playSound(e,f)}/>
+      }
+  })
+
     let bgColor= "#" + this.state.currentColor
     return (
     <div className="App">
