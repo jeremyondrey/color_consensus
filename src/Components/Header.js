@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
 import { ChromePicker } from 'react-color';
 
+import FaPlus from 'react-icons/lib/fa/plus-square-o'
+import FaMinus from 'react-icons/lib/fa/minus-square'
+
 class Header extends Component {
   constructor(props) {
     super(props)
     this.state = {
       hash: '',
-      color:"383f51",
+      color: this.props.color,
       displayColorPicker: false,
+      showForm: false
     }
     this.hashUpdate = this.hashUpdate.bind(this);
     this.colorUpdate = this.colorUpdate.bind(this);
@@ -23,6 +27,9 @@ class Header extends Component {
     this.setState({ displayColorPicker: false })
   };
 
+  unfoldForm = (e) => {
+    this.setState({ showForm: e })
+  };
 
   hashUpdate(event) {
     this.setState({hash: event.target.value});
@@ -36,7 +43,10 @@ class Header extends Component {
     event.preventDefault();
     if (this.state.hash!=='' && this.state.hash.startsWith('Qm')) {
     let response = confirm("All hashes and colors are stored in an immutable blockchain. You are responsible for the content you upload. \nOpen Metamask to confirm. It may take a while for the transaction to appear on the network.");
-    if (response===true){this.props.fireContract(this.state.hash, this.state.color)}
+      if (response===true){
+      this.props.fireContract(this.state.hash, this.state.color)
+      this.setState({color:"383f51"})
+      }
     }
   }
 
@@ -53,17 +63,18 @@ class Header extends Component {
       left: '0px',
     }
     let bgColor= "#" + this.state.color
-    return (
+    console.log(bgColor);
 
-    <div className="headergrid" style={{backgroundColor: bgColor}}>
-      <span className="left">
-        <b>color_consensus</b>
-      <form className="form" onSubmit={this.handleSubmit}>
-          <label>
-            <input type="text" value={this.state.hash} placeholder="paste IPFS hash" onChange={this.hashUpdate} />
-          </label>
-              <button onClick={ this.pickColor }>Pick Color</button>
-          { this.state.displayColorPicker ? <div style={ popover }>
+    return (
+      <div className="headergrid" style={{backgroundColor: bgColor}}>
+        <span className="left">
+          <b>color_consensus</b>
+          <form className="form" onSubmit={this.handleSubmit}>
+            <label>
+              <input type="text" value={this.state.hash} placeholder="paste IPFS hash" onChange={this.hashUpdate} />
+            </label>
+            <button onClick={ this.pickColor }>Pick Color</button>
+            { this.state.displayColorPicker ? <div style={ popover }>
             <div style={ cover } onClick={ this.handleClose }/>
             <ChromePicker color={bgColor} onChangeComplete={this.colorUpdate} disableAlpha/>
           </div> : null }
@@ -74,6 +85,7 @@ class Header extends Component {
         <mark>color_consensus aims to find a relationship between sound and color in a decentralized way. all sounds are stored on an immutable blockchain. <h3><a target="_blank" href="http://lums.io/color_consensus">how it works</a></h3></mark>
       </span>
     </div>
+
     );
   }
 }

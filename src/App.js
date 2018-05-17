@@ -23,6 +23,7 @@ class App extends Component {
       contractHashes: [],
       showForm:false,
       currentSound:'',
+      currentID:'',
       currentColor:'383f51',
       isPlaying:null,
       isRinkeby:false,
@@ -123,12 +124,14 @@ sampleStorage.setProvider(this.state.web3.currentProvider)
     this.setState({ showForm: !currentState })
   }
 
-  playSound(e,f){
+  playSound(e,f,g){
     //e: hash
     //f: color
+    //g: id
       this.setState({currentSound: e})
       this.setState({isPlaying: true})
       this.setState({currentColor: f})
+      this.setState({currentID: g})
   }
 
   //check if str is a color
@@ -189,7 +192,7 @@ rgb2hsv () {
         // console.log(hsl);
         // console.log(this.rgb2hsv(3,25,100));
         if (item.fileID!==21) {
-      return <SoundFile key={item.fileID} fileHash={item.fileHash} fileID={item.fileID} color={item.color} uploader={item.uploader} fireContract={(e,f,c) => this.instantiateContract(e,f,c)} playSound={(e,f) => this.playSound(e,f)}/>
+      return <SoundFile key={item.fileID} currentID={this.state.currentID} fileHash={item.fileHash} fileID={item.fileID} color={item.color} uploader={item.uploader} fireContract={(e,f,c) => this.instantiateContract(e,f,c)} playSound={(e,f,g) => this.playSound(e,f,g)}/>
     }
       }
   })
@@ -197,17 +200,17 @@ rgb2hsv () {
 
 let userFiles=this.state.contractHashes.map(item => {
       if (this.state.web3.eth.accounts[0]===item.uploader){
-      return <SoundFile key={item.fileID} fileHash={item.fileHash} fileID={item.fileID} color={item.color} fireContract={(e,f,c) => this.instantiateContract(e,f,c)} playSound={(e,f) => this.playSound(e,f)}/>
+      return <SoundFile key={item.fileID} fileHash={item.fileHash} fileID={item.fileID} color={item.color} fireContract={(e,f,c) => this.instantiateContract(e,f,c)} playSound={(e,f,g) => this.playSound(e,f,g)}/>
       }
   })
-
+console.log(allFiles);
 
     // let bgColor= "#" + this.state.currentColor
     return (
     <div className="App">
     {this.state.isRinkeby?
       <div>
-        <Header className="form" fireContract={(e,f,c) => this.instantiateContract(e,f,c)}/>
+        <Header className="form" color={this.state.currentColor} fireContract={(e,f,c)=>this.instantiateContract(e,f,c)}/>
         <div className="flex-container">
           {allFiles}
         </div>

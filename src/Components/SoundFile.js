@@ -23,7 +23,7 @@ class SoundFile extends Component {
   handleClick(e) {
     console.log("playing " + this.state.fileHash)
     // e.preventDefault();
-    this.props.playSound(this.state.fileHash,this.state.color)
+    this.props.playSound(this.state.fileHash,this.state.color,this.props.fileID)
   }
 
   urlExists(hash){
@@ -36,7 +36,7 @@ class SoundFile extends Component {
   render() {
     let color="#" + this.state.color
     return (
-      <div className="flex-item" style={{backgroundColor: color}} onClick={this.handleClick.bind(this)}>
+      <div className={this.props.fileID===this.props.currentID?"isplaying":"flex-item"} style={{backgroundColor: color}} onClick={this.handleClick.bind(this)}>
       </div>
     );
   }
