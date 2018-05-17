@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 //icons
 //import FaPlay from 'react-icons/lib/fa/play'
-//import FaPause from 'react-icons/lib/fa/pause'
+// import FaSearch from 'react-icons/lib/fa/search'
 
 class SoundFile extends Component {
   constructor(props) {

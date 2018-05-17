@@ -25,7 +25,8 @@ class App extends Component {
       currentSound:'',
       currentColor:'383f51',
       isPlaying:null,
-      isRinkeby:false
+      isRinkeby:false,
+      userAccount:null
     }
     // this.handleClick = this.handleClick.bind(this)
   }
@@ -46,6 +47,8 @@ class App extends Component {
       .then(network => {
         if (network==='rinkeby') {
           this.setState({isRinkeby:true})
+          //returns null
+          // this.state.web3.eth.getAccounts(accounts => console.log(accounts[0]))
         }
       })
 
@@ -107,18 +110,12 @@ sampleStorage.setProvider(this.state.web3.currentProvider)
             "fileHash": this.state.web3.utils.hexToAscii(result[0]),
             "fileID": result[1].c[0],
             "color": this.state.web3.utils.hexToAscii(result[2]),
-<<<<<<< HEAD
-            "uploader": this.state.web3.utils.hexToAscii(result[3])})
-=======
-            “uploader”: result[3]})
->>>>>>> 93fbb17e574b5b7c0af5f8fd47bc3a07f5495d15
+            "uploader": result[3]})
           // console.log(array)
           this.setState({contractHashes: array})
         }
       })
 }
-
-
 
   //TODO
   toggleForm() {
@@ -145,26 +142,73 @@ sampleStorage.setProvider(this.state.web3.currentProvider)
       }
 }
 
+rgb2hsv () {
+  var rr, gg, bb,
+  r = arguments[0] / 255,
+  g = arguments[1] / 255,
+  b = arguments[2] / 255,
+  h, s,
+  v = Math.max(r, g, b),
+  diff = v - Math.min(r, g, b),
+  diffc = function(c){
+    return (v - c) / 6 / diff + 1 / 2;
+  };
+
+  if (diff == 0) {
+    h = s = 0;
+  } else {
+    s = diff / v;
+    rr = diffc(r);
+    gg = diffc(g);
+    bb = diffc(b);
+
+    if (r === v) {
+      h = bb - gg;
+    }else if (g === v) {
+      h = (1 / 3) + rr - bb;
+    }else if (b === v) {
+      h = (2 / 3) + gg - rr;
+    }
+    if (h < 0) {
+      h += 1;
+    }else if (h > 1) {
+      h -= 1;
+    }
+  }
+  return {
+    h: Math.round(h * 360),
+    s: Math.round(s * 100),
+    v: Math.round(v * 100)
+  };
+}
+
   render() {
     let allFiles=this.state.contractHashes.map(item => {
       if (this.is_hexadecimal(item.color)===true){
+        // let hsl=item.color.match(/.{1,2}/g)
+        // console.log(hsl);
+        // console.log(this.rgb2hsv(3,25,100));
+        if (item.fileID!==21) {
       return <SoundFile key={item.fileID} fileHash={item.fileHash} fileID={item.fileID} color={item.color} uploader={item.uploader} fireContract={(e,f,c) => this.instantiateContract(e,f,c)} playSound={(e,f) => this.playSound(e,f)}/>
+    }
       }
   })
 
+
 let userFiles=this.state.contractHashes.map(item => {
-      if (web3.eth.accounts[0]===item.uploader){
+      if (this.state.web3.eth.accounts[0]===item.uploader){
       return <SoundFile key={item.fileID} fileHash={item.fileHash} fileID={item.fileID} color={item.color} fireContract={(e,f,c) => this.instantiateContract(e,f,c)} playSound={(e,f) => this.playSound(e,f)}/>
       }
   })
 
-    let bgColor= "#" + this.state.currentColor
+
+    // let bgColor= "#" + this.state.currentColor
     return (
     <div className="App">
     {this.state.isRinkeby?
       <div>
         <Header className="form" fireContract={(e,f,c) => this.instantiateContract(e,f,c)}/>
-        <div className="flex-container" style={{backgroundColor: bgColor}} >
+        <div className="flex-container">
           {allFiles}
         </div>
         <Footer currentSound={this.state.currentSound} currentColor={this.state.currentColor} autoPlay={this.state.isPlaying}/>

@@ -8,9 +8,9 @@ class Footer extends Component {
   render() {
     let url="https://ipfs.io/ipfs/" + this.props.currentSound
     return (
-      <div className="footer">
-      <ReactAudioPlayer className="audio" src={url} controls autoPlay={this.props.autoPlay}/>
-      {this.props.currentSound ? <a href={url}><strong>color: #{this.props.currentColor}</strong></a> : null}
+      <div className="footer" style={{background: "#" + this.props.currentColor}}>
+      {this.props.currentSound ? <ReactAudioPlayer className="audio" src={url} controls autoPlay={this.props.autoPlay}/>: null}
+      {this.props.currentSound ? <mark><a className="dlbtn" href={url}><FaDl/></a></mark> : null}
     </div>
     )
   }

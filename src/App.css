@@ -3,10 +3,11 @@
 body{
   font-family: 'Open Sans', sans-serif;
   background-color: #383f51;
+  margin-left: 0px;
 }
 
 .audio{
-  width: 800px;
+  width: 90%;
 }
 
 h1, h2, h3 {
@@ -59,18 +60,21 @@ mark {
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-  -webkit-flex-flow: row wrap;
+  -webkit-flex-wrap: wrap;
   justify-content: left;
+  position: absolute;
+
 }
 
 .flex-item {
-  margin: 5px;
+  margin: 0px;
   color: white;
   text-align: center;
-  vertical-align: center;
-  height: 10vw;
-  width: 10vw;
+  vertical-align: bottom;
+  height: 300px;
+  width: 300px;
   line-height: 10vw;
+  align-items: stretch;
 }
 
 .flex-item:hover {
@@ -90,8 +94,7 @@ box-sizing: border-box;
     margin: 10px;
   }
 
-@media screen and (min-width: 476px) {
-}
+
 
 
 code {
@@ -123,10 +126,8 @@ code {
   display: flex;
   position: fixed;
   bottom: 0;
-  background: #383F51;
   width: 100%;
   overflow: hidden;
-  background-color: #383f51;
   color: #FFF;
   padding: 20px 10px;
   vertical-align: middle;

@@ -36,7 +36,7 @@ class Header extends Component {
     event.preventDefault();
     if (this.state.hash!=='' && this.state.hash.startsWith('Qm')) {
     let response = confirm("All hashes and colors are stored in an immutable blockchain. You are responsible for the content you upload. \nOpen Metamask to confirm. It may take a while for the transaction to appear on the network.");
-    if (response==true){this.props.fireContract(this.state.hash, this.state.color)}
+    if (response===true){this.props.fireContract(this.state.hash, this.state.color)}
     }
   }
 
