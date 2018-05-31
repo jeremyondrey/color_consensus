@@ -6,7 +6,6 @@ import getWeb3 from './utils/getWeb3'
 import SoundFile from './Components/SoundFile.js'
 import Header from './Components/Header.js'
 import Footer from './Components/Footer.js'
-import FlipMove from 'react-flip-move'
 
 import './css/oswald.css'
 import './css/open-sans.css'
@@ -70,22 +69,6 @@ class App extends Component {
       return "true"
     } else return "nep"
 }
-
-addToCollection(e,f,g){
-
-  if (e !== "") {
-    let newItem ={
-      key: e,
-      fileID: e,
-      color:f,
-      uploader: g
-    }
-
-    console.log(newItem);
-
-}
-}
-
 
   instantiateContract(e,c) {
     //e: new file hash from form
@@ -261,7 +244,6 @@ flipOrder(){
                 fileID={item.fileID}
                 color={item.color}
                 uploader={item.uploader}
-                addToCollection={(e,f,g) => this.addToCollection(e,f,g)}
                 playSound={(e,f,g) => this.playSound(e,f,g)}/>
             }
           }
@@ -283,11 +265,11 @@ flipOrder(){
     {this.state.isRinkeby?
       <div>
         <Header className="form" color={this.state.currentColor} fireContract={(e,f,c)=>this.instantiateContract(e,f,c)}/>
-        <FlipMove duration={250} easing="ease-out">
+
         <div className="flex-container">
           {allFiles}
         </div>
-      </FlipMove>
+
         <Footer currentSound={this.state.currentSound} currentColor={this.state.currentColor} autoPlay={this.state.isPlaying}/>
       </div>
       : <div className="header">make sure metamask is installed and set to rinkeby network. more info <a target="_blank" href="http://lums.io/color_consensus">here</a></div>}
