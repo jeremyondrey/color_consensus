@@ -13,7 +13,8 @@ TODO
 - [x] smart contract communication
 - [x] demo samples
 - [x] nice color picker
-- [] save sample as color hex value
+- [o] file check on client write & read
+- [o] save sample as color hex .wav
 - [x] test raspi deployment
 - [x] rinkeby deployment
 - [] documentation
