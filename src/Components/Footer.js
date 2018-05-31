@@ -8,17 +8,7 @@ import InfoButton from 'react-icons/lib/fa/info-circle'
 
 class Footer extends Component {
 
-addToCollection(e,f,g){
-  if (e !== "") {
-    let newItem ={
-      key: e,
-      fileID: e,
-      color:f,
-      uploader: g
-    }
-    console.log(newItem);
-  }
-}
+
 
   render() {
     let url="https://ipfs.io/ipfs/" + this.props.currentSound

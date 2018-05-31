@@ -33,12 +33,16 @@ class SoundFile extends Component {
   }
 
   render() {
+    // <button onClick={() => {this.props.addToCollection(this.props.fileID)}}>{this.props.inCrate}</button>
     let color="#" + this.state.color
     return (
+      <div className="sqr-text">
       <div className={
           this.props.fileID===this.props.currentID?"isplaying":"flex-item"}
           style={{backgroundColor: color}}
           onClick={this.handleClick.bind(this)}>
+          
+      </div>
       </div>
     );
   }

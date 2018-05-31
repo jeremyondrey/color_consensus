@@ -28,9 +28,9 @@ class App extends Component {
       isPlaying:null,
       isRinkeby:false,
       userAccount:null,
-      userFiles: []
+      userFiles: [0]
     }
-    // this.handleClick = this.handleClick.bind(this)
+    // this.state.userFiles = this.state.userFiles.bind(this)
   }
 
   componentWillMount() {
@@ -68,6 +68,17 @@ class App extends Component {
     if (filename.split('.').pop() === "wav") {
       return "true"
     } else return "nep"
+  }
+
+addToCollection(e){
+  if (e !== "") {
+    if (this.state.userFiles.includes(e)) {
+    } else {
+      let newList = this.state.userFiles.concat(e)
+      this.setState({userFiles: newList})
+      console.log(newList)
+      }
+  }
 }
 
   instantiateContract(e,c) {
@@ -110,7 +121,7 @@ sampleStorage.setProvider(this.state.web3.currentProvider)
         for (let i = this.state.listLength - 1; i > 0 ; i--) {
           const result = await sampleStorageInstance.getSample(i)
           // convert hex to ascii and append to array
-          console.log(result)
+          // console.log(result)
           array.push({
             "fileHash": this.state.web3.utils.hexToAscii(result[0]),
             "fileID": result[1].c[0],
@@ -230,6 +241,7 @@ flipOrder(){
 }
 
   render() {
+
     // let itemsToIterate = this.state.contractHashes.slice(0).reverse();
     let allFiles=this.state.contractHashes.map(item => {
       if (this.is_hexadecimal(item.color)===true){
@@ -237,15 +249,22 @@ flipOrder(){
 
           if (item.fileID!==21) {
             if (item.fileID!==22) {
+              let inCrate="+"
+              if (this.state.userFiles.includes(item.fileID)){
+                inCrate="-"
+              }
+
               return <SoundFile
                 key={item.fileHash}
+                inCrate={inCrate}
                 currentID={this.state.currentID}
                 fileHash={item.fileHash}
                 fileID={item.fileID}
                 color={item.color}
                 uploader={item.uploader}
+                addToCollection={(e) => this.addToCollection(e)}
                 playSound={(e,f,g) => this.playSound(e,f,g)}/>
-            }
+          }
           }
 
       }
@@ -262,17 +281,21 @@ flipOrder(){
     // let bgColor= "#" + this.state.currentColor
     return (
     <div className="App">
-    {this.state.isRinkeby?
-      <div>
-        <Header className="form" color={this.state.currentColor} fireContract={(e,f,c)=>this.instantiateContract(e,f,c)}/>
-
-        <div className="flex-container">
-          {allFiles}
+      {this.state.isRinkeby?
+        <div>
+          <Header className="form" isRinkeby={this.state.isRinkeby} color={this.state.currentColor} fireContract={(e,f,c)=>this.instantiateContract(e,f,c)}/>
+          <div className="centeredFlex">
+            <div className="flex-container">
+              {allFiles}
+            </div>
+          </div>
+          <Footer currentSound={this.state.currentSound} currentColor={this.state.currentColor} autoPlay={this.state.isPlaying}/>
         </div>
-
-        <Footer currentSound={this.state.currentSound} currentColor={this.state.currentColor} autoPlay={this.state.isPlaying}/>
-      </div>
-      : <div className="header">make sure metamask is installed and set to rinkeby network. more info <a target="_blank" href="http://lums.io/color_consensus">here</a></div>}
+        : <div>
+            <Header className="form" isRinkeby={this.state.isRinkeby}/>
+            <div className="error">make sure <a href="https://metamask.io/">metamask</a> is installed and connected to rinkeby network. <br/> this is a decentralized app (dapp) which relies on a blockchain to deliver content. <br/><br/> more info <a target="_blank" href="http://lums.io/color_consensus">here</a></div>
+        </div>
+      }
     </div>
     );
   }
