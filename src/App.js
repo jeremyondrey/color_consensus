@@ -6,6 +6,7 @@ import getWeb3 from './utils/getWeb3'
 import SoundFile from './Components/SoundFile.js'
 import Header from './Components/Header.js'
 import Footer from './Components/Footer.js'
+import FlipMove from 'react-flip-move'
 
 import './css/oswald.css'
 import './css/open-sans.css'
@@ -27,7 +28,8 @@ class App extends Component {
       currentColor:'383f51',
       isPlaying:null,
       isRinkeby:false,
-      userAccount:null
+      userAccount:null,
+      userFiles: []
     }
     // this.handleClick = this.handleClick.bind(this)
   }
@@ -38,12 +40,15 @@ class App extends Component {
     getWeb3
     .then(results => {
       this.setState({
-        web3: results.web3
+        web3: results.web3,
       })
+
       // Instantiate contract once web3 provided.
       // this.instantiateContract()
-      this.getArrayLength()
-
+      this.loadSamples()
+      this.state.web3.eth.getAccounts().then(res => {
+        this.setState({userAccount: res})
+      })
       this.state.web3.eth.net.getNetworkType()
       .then(network => {
         if (network==='rinkeby') {
@@ -66,6 +71,22 @@ class App extends Component {
     } else return "nep"
 }
 
+addToCollection(e,f,g){
+
+  if (e !== "") {
+    let newItem ={
+      key: e,
+      fileID: e,
+      color:f,
+      uploader: g
+    }
+
+    console.log(newItem);
+
+}
+}
+
+
   instantiateContract(e,c) {
     //e: new file hash from form
     //c: new color
@@ -76,18 +97,17 @@ class App extends Component {
     // console.log("calling instantiatecontract");
     // Declaring this for later so we can chain functions on SampleStorage.
     var sampleStorageInstance
-    let color = this.state.web3.utils.toHex(c)
     // Get accounts
     this.state.web3.eth.getAccounts((error, accounts) => {
       sampleStorage.deployed().then((instance) => {
         sampleStorageInstance = instance
         // calls createSample function on smart contract
-        return sampleStorageInstance.createSample(this.state.web3.utils.toHex(e), color, {from: accounts[0]})
+        return sampleStorageInstance.createSample(this.state.web3.utils.toHex(e), this.state.web3.utils.toHex(c), {from: accounts[0]})
       })
     })
   }
 
-  getArrayLength() {
+  loadSamples() {
     // e.preventDefault()
     const contract = require('truffle-contract')
     const sampleStorage = contract(SampleStorageContract)
@@ -99,24 +119,60 @@ sampleStorage.setProvider(this.state.web3.currentProvider)
         // gets sample array length
         return sampleStorageInstance.getSampleCount()
       }).then((result) => {
-        // Update state
+        // Update state with length of list
         return this.setState({ listLength: result.c[0]})
       }).then( async(items) => {
         // loop through array stored in smart contract
         let array=[]
-        for (let i = 0; i < this.state.listLength; i++) {
+        for (let i = this.state.listLength - 1; i > 0 ; i--) {
           const result = await sampleStorageInstance.getSample(i)
           // convert hex to ascii and append to array
+          console.log(result)
           array.push({
             "fileHash": this.state.web3.utils.hexToAscii(result[0]),
             "fileID": result[1].c[0],
             "color": this.state.web3.utils.hexToAscii(result[2]),
+            //address not working yet for some unknown reason
             "uploader": result[3]})
           // console.log(array)
           this.setState({contractHashes: array})
         }
       })
 }
+
+// getSortedRandom(e) {
+//   //e: id for sorting type
+//   // e.preventDefault()
+//   const contract = require('truffle-contract')
+//   const sampleStorage = contract(SampleStorageContract)
+// sampleStorage.setProvider(this.state.web3.currentProvider)
+//   // Declaring this for later so we can chain functions on SampleStorage.
+//   var sampleStorageInstance
+//     sampleStorage.deployed().then((instance) => {
+//       sampleStorageInstance = instance
+//       // gets sample array length
+//       return sampleStorageInstance.getSampleCount()
+//     }).then((result) => {
+//       // Update state
+//       return this.setState({ listLength: result.c[0]})
+//     }).then( async(items) => {
+//       // loop through array stored in smart contract
+//       let array=[]
+//
+//       for (let i = 0; i < this.state.listLength; i++) {
+//         const result = await sampleStorageInstance.getSample(i)
+//
+//         // convert hex to ascii and append to array
+//         array.push({
+//           "fileHash": this.state.web3.utils.hexToAscii(result[0]),
+//           "fileID": result[1].c[0],
+//           "color": this.state.web3.utils.hexToAscii(result[2]),
+//           "uploader": result[3]})
+//         // console.log(array)
+//         this.setState({contractHashes: array})
+//       }
+//     })
+// }
 
   //TODO
   toggleForm() {
@@ -136,6 +192,7 @@ sampleStorage.setProvider(this.state.web3.currentProvider)
 
   //check if str is a color
   is_hexadecimal(str){
+    // console.log(str);
     let regexp = /^[0-9a-fA-F]+$/
     if (regexp.test(str)){
       return true
@@ -157,7 +214,7 @@ rgb2hsv () {
     return (v - c) / 6 / diff + 1 / 2;
   };
 
-  if (diff == 0) {
+  if (diff === 0) {
     h = s = 0;
   } else {
     s = diff / v;
@@ -185,25 +242,40 @@ rgb2hsv () {
   };
 }
 
+flipOrder(){
+  this.state.contractHashes.reverse()
+}
+
   render() {
+    // let itemsToIterate = this.state.contractHashes.slice(0).reverse();
     let allFiles=this.state.contractHashes.map(item => {
       if (this.is_hexadecimal(item.color)===true){
-        // let hsl=item.color.match(/.{1,2}/g)
-        // console.log(hsl);
-        // console.log(this.rgb2hsv(3,25,100));
-        if (item.fileID!==21) {
-      return <SoundFile key={item.fileID} currentID={this.state.currentID} fileHash={item.fileHash} fileID={item.fileID} color={item.color} uploader={item.uploader} fireContract={(e,f,c) => this.instantiateContract(e,f,c)} playSound={(e,f,g) => this.playSound(e,f,g)}/>
-    }
+        //this should work, but it doesn't so right now i'm hiding broken files manually, which sucks
+
+          if (item.fileID!==21) {
+            if (item.fileID!==22) {
+              return <SoundFile
+                key={item.fileHash}
+                currentID={this.state.currentID}
+                fileHash={item.fileHash}
+                fileID={item.fileID}
+                color={item.color}
+                uploader={item.uploader}
+                addToCollection={(e,f,g) => this.addToCollection(e,f,g)}
+                playSound={(e,f,g) => this.playSound(e,f,g)}/>
+            }
+          }
+
       }
-  })
+
+    })
 
 
-let userFiles=this.state.contractHashes.map(item => {
-      if (this.state.web3.eth.accounts[0]===item.uploader){
-      return <SoundFile key={item.fileID} fileHash={item.fileHash} fileID={item.fileID} color={item.color} fireContract={(e,f,c) => this.instantiateContract(e,f,c)} playSound={(e,f,g) => this.playSound(e,f,g)}/>
-      }
-  })
-console.log(allFiles);
+// let userFiles=this.state.contractHashes.map(item => {
+//       if (this.state.web3.eth.accounts[0]===item.uploader){
+//       return <SoundFile key={item.fileID} fileHash={item.fileHash} fileID={item.fileID} color={item.color} fireContract={(e,f,c) => this.instantiateContract(e,f,c)} playSound={(e,f,g) => this.playSound(e,f,g)}/>
+//       }
+//   })
 
     // let bgColor= "#" + this.state.currentColor
     return (
@@ -211,9 +283,11 @@ console.log(allFiles);
     {this.state.isRinkeby?
       <div>
         <Header className="form" color={this.state.currentColor} fireContract={(e,f,c)=>this.instantiateContract(e,f,c)}/>
+        <FlipMove duration={250} easing="ease-out">
         <div className="flex-container">
           {allFiles}
         </div>
+      </FlipMove>
         <Footer currentSound={this.state.currentSound} currentColor={this.state.currentColor} autoPlay={this.state.isPlaying}/>
       </div>
       : <div className="header">make sure metamask is installed and set to rinkeby network. more info <a target="_blank" href="http://lums.io/color_consensus">here</a></div>}

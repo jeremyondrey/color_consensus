@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { ChromePicker } from 'react-color';
 
-import FaPlus from 'react-icons/lib/fa/plus-square-o'
-import FaMinus from 'react-icons/lib/fa/minus-square'
+import ColorIcon from 'react-icons/lib/md/colorize'
+import Github from 'react-icons/lib/go/mark-github'
 
 class Header extends Component {
   constructor(props) {
@@ -63,7 +63,6 @@ class Header extends Component {
       left: '0px',
     }
     let bgColor= "#" + this.state.color
-    console.log(bgColor);
 
     return (
       <div className="headergrid" style={{backgroundColor: bgColor}}>
@@ -73,12 +72,12 @@ class Header extends Component {
             <label>
               <input type="text" value={this.state.hash} placeholder="paste IPFS hash" onChange={this.hashUpdate} />
             </label>
-            <button onClick={ this.pickColor }>Pick Color</button>
+            <button onClick={ this.pickColor }><ColorIcon/></button>
             { this.state.displayColorPicker ? <div style={ popover }>
             <div style={ cover } onClick={ this.handleClose }/>
             <ChromePicker color={bgColor} onChangeComplete={this.colorUpdate} disableAlpha/>
           </div> : null }
-          <input type="submit" value="Submit"/>
+          <input className="formButton" type="submit" value="submit"/>
         </form>
       </span>
       <span className="right">

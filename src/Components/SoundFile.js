@@ -2,14 +2,13 @@ import React, { Component } from 'react'
 
 //icons
 //import FaPlay from 'react-icons/lib/fa/play'
-// import FaSearch from 'react-icons/lib/fa/search'
+import FlipMove from 'react-flip-move'
 
 class SoundFile extends Component {
   constructor(props) {
     super(props)
     this.state = {
       fileHash: this.props.fileHash,
-      fileID: this.props.fileID,
       color: "383F51"
     }
   }
@@ -21,7 +20,7 @@ class SoundFile extends Component {
   }
 
   handleClick(e) {
-    console.log("playing " + this.state.fileHash)
+    console.log("playing id " + this.props.fileID + "\nfile " + this.state.fileHash + "\nfrom " + this.props.uploader)
     // e.preventDefault();
     this.props.playSound(this.state.fileHash,this.state.color,this.props.fileID)
   }
@@ -36,7 +35,10 @@ class SoundFile extends Component {
   render() {
     let color="#" + this.state.color
     return (
-      <div className={this.props.fileID===this.props.currentID?"isplaying":"flex-item"} style={{backgroundColor: color}} onClick={this.handleClick.bind(this)}>
+      <div className={
+          this.props.fileID===this.props.currentID?"isplaying":"flex-item"}
+          style={{backgroundColor: color}}
+          onClick={this.handleClick.bind(this)}>
       </div>
     );
   }
