@@ -243,6 +243,7 @@ flipOrder(){
   render() {
 
     // let itemsToIterate = this.state.contractHashes.slice(0).reverse();
+    // let x=new Array[33,34,47,49,50,55]
     let allFiles=this.state.contractHashes.map(item => {
       if (this.is_hexadecimal(item.color)===true){
         //this should work, but it doesn't so right now i'm hiding broken files manually, which sucks
